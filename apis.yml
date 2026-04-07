@@ -4,8 +4,7 @@ url: >-
 apis:
   - aid: aviation-edge:aviation-edge
     name: Aviation Edge
-    tags:
-      - API
+    tags: []
     humanURL: ' https://aviation-edge.com/satellite-tracking-api/'
     properties:
       - url: ' https://aviation-edge.com/satellite-tracking-api/'
@@ -17,9 +16,9 @@ apis:
       year, size, country of origin and more.
 name: Aviation Edge
 tags:
-  - Aviation
   - Airlines
   - Airports
+  - Aviation
 type: Contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
