@@ -1,42 +1,41 @@
 # Aviation Edge (aviation-edge)
-Aviation Edge is a leading provider of aviation data and technology solutions for the global aviation industry. The company offers comprehensive and accurate data sets that cover everything from flight schedules and airline information to airport details and aircraft data. By leveraging advanced technology and innovative tools, Aviation Edge helps airlines, airports, and other industry stakeholders make informed decisions, optimize operations, and enhance the overall passenger experience. With a commitment to quality, reliability, and customer satisfaction, Aviation Edge is dedicated to providing the most up-to-date and reliable aviation data solutions to support the evolving needs of the industry.
+Aviation Edge is a leading provider of aviation data and technology solutions for the global aviation industry. The company offers comprehensive and accurate data sets that cover everything from flight schedules and airline information to airport details and aircraft data.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/aviation-edge/refs/heads/main/apis.yml)
+**URL:** [https://aviation-edge.com/](https://aviation-edge.com/)
 
-## Scope
+## Tags
 
-- **Type:** Contract 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
-
-## Tags:
-
- - Aviation, Airlines, Airports
+ - Airlines, Airports, Aviation, Flight Data, Real-Time
 
 ## Timestamps
 
-- **Created:** 2025-02-06 
-- **Modified:** 2025-02-24 
+- **Created:** 2025-02-06
+- **Modified:** 2026-04-19
 
 ## APIs
 
 ### Aviation Edge
-Aviation Edge Satellite Tracker API provides detailed, real-time data of satellites and objects orbiting around the Earth. The API covers real-time position information as well as many other details about the satellite such as name, NORAD ID, launch year, size, country of origin and more.  
+Aviation Edge API provides comprehensive aviation data including real-time flight tracking, airport information, airline schedules, aircraft data, and satellite tracking for global aviation intelligence.
 
-**Human URL:** [ https://aviation-edge.com/satellite-tracking-api/]( https://aviation-edge.com/satellite-tracking-api/)
+**Human URL:** [https://aviation-edge.com/](https://aviation-edge.com/)
 
+#### Tags
 
-#### Tags:
-
- - API
+ - Airlines, Airports, Aviation, Flight Tracking, Real-Time
 
 #### Properties
 
-- [Documentation]( https://aviation-edge.com/satellite-tracking-api/)
+- [Documentation](https://aviation-edge.com/developers/)
+
+## Common Properties
+
+- [Website](https://aviation-edge.com/)
+- [Portal](https://aviation-edge.com/developers/)
+- [GitHubOrganization](https://github.com/aviation-edge)
+- [LinkedIn](https://www.linkedin.com/company/aviation-edge/)
 
 ## Maintainers
 
 **FN:** Kin Lane
 
-**Email:** info@apievangelist.com
-
+**Email:** kin@apievangelist.com
