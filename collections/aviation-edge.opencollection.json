@@ -1,0 +1,494 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aviation Edge API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Real-Time",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Real-time flight tracker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/flights",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "depIata",
+                "value": "",
+                "type": "query",
+                "description": "Departure airport IATA code"
+              },
+              {
+                "name": "arrIata",
+                "value": "",
+                "type": "query",
+                "description": "Arrival airport IATA code"
+              },
+              {
+                "name": "airlineIata",
+                "value": "",
+                "type": "query",
+                "description": "Airline IATA code"
+              },
+              {
+                "name": "flightIata",
+                "value": "",
+                "type": "query",
+                "description": "Flight IATA code"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns real-time flight positional data filterable by airline, airport, flight number, or status."
+        },
+        {
+          "info": {
+            "name": "Historical flight tracker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/flightsHistory",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Airport IATA/ICAO code"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "airline_iata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flight_num",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Historical flight tracker"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Flight schedules timetable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/timetable",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "iataCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "airline_iata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flight_num",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Flight schedules timetable"
+        },
+        {
+          "info": {
+            "name": "Future flight schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/flightsFuture",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "iataCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Future flight schedules"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airline routes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/routes",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "departureIata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "arrivalIata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "airlineIata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flightNumber",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Airline routes"
+        },
+        {
+          "info": {
+            "name": "Airport reference database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/airportDatabase",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "codeIataAirport",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "codeIso2Country",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Airport reference database"
+        },
+        {
+          "info": {
+            "name": "Airline reference database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/airlineDatabase",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "codeIataAirline",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "codeIso2Country",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Airline reference database"
+        },
+        {
+          "info": {
+            "name": "Aircraft reference database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/airplaneDatabase",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "numberRegistration",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Aircraft reference database"
+        },
+        {
+          "info": {
+            "name": "City reference database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/cityDatabase",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "codeIataCity",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "City reference database"
+        },
+        {
+          "info": {
+            "name": "Country reference database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/countryDatabase",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "codeIso2Country",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Country reference database"
+        },
+        {
+          "info": {
+            "name": "Autocomplete cities, airports and stations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/autocomplete",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Autocomplete cities, airports and stations"
+        },
+        {
+          "info": {
+            "name": "Nearby airports by geolocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/nearby",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "distance",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Nearby airports by geolocation"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Satellites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Satellite tracking details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/satelliteDetails",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "NORAD catalog number"
+              },
+              {
+                "name": "launchYear",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "intldes",
+                "value": "",
+                "type": "query",
+                "description": "NSSDC international designator"
+              },
+              {
+                "name": "orbitalapogee",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Satellite tracking details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
