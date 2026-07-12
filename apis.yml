@@ -38,9 +38,15 @@ maintainers:
   email: kin@apievangelist.com
 specificationVersion: '0.19'
 common:
+- type: DomainSecurity
+  url: security/aviation-edge-domain-security.yml
+- type: Authentication
+  url: authentication/aviation-edge-authentication.yml
 - type: Portal
   url: https://aviation-edge.com/developers/
 - type: GitHubOrganization
   url: https://github.com/aviation-edge
 - type: LinkedIn
   url: https://www.linkedin.com/company/aviation-edge/
+- url: https://aviation-edge.com/feed/
+  type: Blog
