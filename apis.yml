@@ -38,6 +38,8 @@ maintainers:
   email: kin@apievangelist.com
 specificationVersion: '0.19'
 common:
+- type: AgenticAccess
+  url: agentic-access/aviation-edge-agentic-access.yml
 - type: DomainSecurity
   url: security/aviation-edge-domain-security.yml
 - type: Authentication
