@@ -1,0 +1,239 @@
+openapi: 3.1.0
+info:
+  title: Aviation Edge Real-Time Reference API
+  version: v2
+  description: 'Aviation Edge provides global aviation data including real-time flight
+
+    tracking, historical flight data, flight schedules, airline routes,
+
+    delays, airport/airline/aircraft reference data, NOTAMs, and satellite
+
+    tracking. All endpoints are JSON over HTTPS GET and require an API key
+
+    passed as the `key` query parameter.
+
+    '
+  contact:
+    name: Aviation Edge
+    url: https://aviation-edge.com/
+servers:
+- url: https://aviation-edge.com/v2/public
+  description: Aviation Edge public v2 API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Reference
+  description: Static reference data
+paths:
+  /routes:
+    get:
+      tags:
+      - Reference
+      summary: Airline routes
+      operationId: getRoutes
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: departureIata
+        in: query
+        schema:
+          type: string
+      - name: arrivalIata
+        in: query
+        schema:
+          type: string
+      - name: airlineIata
+        in: query
+        schema:
+          type: string
+      - name: flightNumber
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Route entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /airportDatabase:
+    get:
+      tags:
+      - Reference
+      summary: Airport reference database
+      operationId: getAirports
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: codeIataAirport
+        in: query
+        schema:
+          type: string
+      - name: codeIso2Country
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Array of airports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /airlineDatabase:
+    get:
+      tags:
+      - Reference
+      summary: Airline reference database
+      operationId: getAirlines
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: codeIataAirline
+        in: query
+        schema:
+          type: string
+      - name: codeIso2Country
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Array of airlines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /airplaneDatabase:
+    get:
+      tags:
+      - Reference
+      summary: Aircraft reference database
+      operationId: getAircraft
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: numberRegistration
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Array of aircraft
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /cityDatabase:
+    get:
+      tags:
+      - Reference
+      summary: City reference database
+      operationId: getCities
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: codeIataCity
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Array of cities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /countryDatabase:
+    get:
+      tags:
+      - Reference
+      summary: Country reference database
+      operationId: getCountries
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: codeIso2Country
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Array of countries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /autocomplete:
+    get:
+      tags:
+      - Reference
+      summary: Autocomplete cities, airports and stations
+      operationId: autocomplete
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: city
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Autocomplete matches
+          content:
+            application/json:
+              schema:
+                type: object
+  /nearby:
+    get:
+      tags:
+      - Reference
+      summary: Nearby airports by geolocation
+      operationId: getNearby
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: lat
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: lng
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: distance
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Nearby airports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+components:
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Aviation Edge API key
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: key

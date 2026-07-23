@@ -1,0 +1,81 @@
+openapi: 3.1.0
+info:
+  title: Aviation Edge Real-Time Satellites API
+  version: v2
+  description: 'Aviation Edge provides global aviation data including real-time flight
+
+    tracking, historical flight data, flight schedules, airline routes,
+
+    delays, airport/airline/aircraft reference data, NOTAMs, and satellite
+
+    tracking. All endpoints are JSON over HTTPS GET and require an API key
+
+    passed as the `key` query parameter.
+
+    '
+  contact:
+    name: Aviation Edge
+    url: https://aviation-edge.com/
+servers:
+- url: https://aviation-edge.com/v2/public
+  description: Aviation Edge public v2 API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Satellites
+  description: Satellite tracking data
+paths:
+  /satelliteDetails:
+    get:
+      tags:
+      - Satellites
+      summary: Satellite tracking details
+      operationId: getSatelliteDetails
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: code
+        in: query
+        schema:
+          type: string
+        description: NORAD catalog number
+      - name: launchYear
+        in: query
+        schema:
+          type: integer
+      - name: intldes
+        in: query
+        schema:
+          type: string
+        description: NSSDC international designator
+      - name: orbitalapogee
+        in: query
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          maximum: 30000
+      responses:
+        '200':
+          description: Satellite metadata
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+components:
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Aviation Edge API key
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: key

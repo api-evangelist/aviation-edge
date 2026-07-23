@@ -1,0 +1,139 @@
+openapi: 3.1.0
+info:
+  title: Aviation Edge Real-Time API
+  version: v2
+  description: 'Aviation Edge provides global aviation data including real-time flight
+
+    tracking, historical flight data, flight schedules, airline routes,
+
+    delays, airport/airline/aircraft reference data, NOTAMs, and satellite
+
+    tracking. All endpoints are JSON over HTTPS GET and require an API key
+
+    passed as the `key` query parameter.
+
+    '
+  contact:
+    name: Aviation Edge
+    url: https://aviation-edge.com/
+servers:
+- url: https://aviation-edge.com/v2/public
+  description: Aviation Edge public v2 API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Real-Time
+  description: Real-time and live flight tracking
+paths:
+  /flights:
+    get:
+      tags:
+      - Real-Time
+      summary: Real-time flight tracker
+      description: Returns real-time flight positional data filterable by airline, airport, flight number, or status.
+      operationId: getRealTimeFlights
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: depIata
+        in: query
+        schema:
+          type: string
+        description: Departure airport IATA code
+      - name: arrIata
+        in: query
+        schema:
+          type: string
+        description: Arrival airport IATA code
+      - name: airlineIata
+        in: query
+        schema:
+          type: string
+        description: Airline IATA code
+      - name: flightIata
+        in: query
+        schema:
+          type: string
+        description: Flight IATA code
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - scheduled
+          - active
+          - landed
+          - cancelled
+          - incident
+          - diverted
+      responses:
+        '200':
+          description: Array of flight objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /flightsHistory:
+    get:
+      tags:
+      - Real-Time
+      summary: Historical flight tracker
+      operationId: getHistoricalFlights
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: code
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Airport IATA/ICAO code
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - departure
+          - arrival
+      - name: date_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: date_to
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: airline_iata
+        in: query
+        schema:
+          type: string
+      - name: flight_num
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Historical flight data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+components:
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Aviation Edge API key
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: key

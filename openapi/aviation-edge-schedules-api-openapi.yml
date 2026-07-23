@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: Aviation Edge Real-Time Schedules API
+  version: v2
+  description: 'Aviation Edge provides global aviation data including real-time flight
+
+    tracking, historical flight data, flight schedules, airline routes,
+
+    delays, airport/airline/aircraft reference data, NOTAMs, and satellite
+
+    tracking. All endpoints are JSON over HTTPS GET and require an API key
+
+    passed as the `key` query parameter.
+
+    '
+  contact:
+    name: Aviation Edge
+    url: https://aviation-edge.com/
+servers:
+- url: https://aviation-edge.com/v2/public
+  description: Aviation Edge public v2 API
+security:
+- ApiKeyAuth: []
+tags:
+- name: Schedules
+  description: Airport schedules and flight timetables
+paths:
+  /timetable:
+    get:
+      tags:
+      - Schedules
+      summary: Flight schedules timetable
+      operationId: getTimetable
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: iataCode
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - departure
+          - arrival
+      - name: airline_iata
+        in: query
+        schema:
+          type: string
+      - name: flight_num
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Flight schedules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /flightsFuture:
+    get:
+      tags:
+      - Schedules
+      summary: Future flight schedules
+      operationId: getFutureFlights
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: iataCode
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - departure
+          - arrival
+      - name: date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Future schedule entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+components:
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Aviation Edge API key
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: key
