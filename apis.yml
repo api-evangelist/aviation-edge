@@ -10,13 +10,54 @@ apis:
   - Aviation
   - Flight Tracking
   - Real-Time
-  humanURL: 'https://aviation-edge.com/'
+  humanURL: https://aviation-edge.com/
   properties:
   - url: ' https://aviation-edge.com/satellite-tracking-api/'
     type: Documentation
   description: >-
-    Aviation Edge API provides comprehensive aviation data including real-time flight tracking, airport information, airline schedules, aircraft data, and satellite tracking for global aviation intelligence.
+    Aviation Edge API provides comprehensive aviation data including real-time flight tracking, airport
+    information, airline schedules, aircraft data, and satellite tracking for global aviation intelligence.
   baseURL: https://aviation-edge.com/
+- aid: aviation-edge:aviation-edge-real-time-api
+  name: Aviation Edge Real-Time API
+  description: Real-time and live flight tracking
+  humanURL: https://aviation-edge.com/
+  baseURL: https://aviation-edge.com/
+  tags:
+  - Real-Time
+  properties:
+  - type: OpenAPI
+    url: openapi/aviation-edge-real-time-api-openapi.yml
+- aid: aviation-edge:aviation-edge-reference-api
+  name: Aviation Edge Reference API
+  description: Static reference data
+  humanURL: https://aviation-edge.com/
+  baseURL: https://aviation-edge.com/
+  tags:
+  - Reference
+  properties:
+  - type: OpenAPI
+    url: openapi/aviation-edge-reference-api-openapi.yml
+- aid: aviation-edge:aviation-edge-satellites-api
+  name: Aviation Edge Satellites API
+  description: Satellite tracking data
+  humanURL: https://aviation-edge.com/
+  baseURL: https://aviation-edge.com/
+  tags:
+  - Satellites
+  properties:
+  - type: OpenAPI
+    url: openapi/aviation-edge-satellites-api-openapi.yml
+- aid: aviation-edge:aviation-edge-schedules-api
+  name: Aviation Edge Schedules API
+  description: Airport schedules and flight timetables
+  humanURL: https://aviation-edge.com/
+  baseURL: https://aviation-edge.com/
+  tags:
+  - Schedules
+  properties:
+  - type: OpenAPI
+    url: openapi/aviation-edge-schedules-api-openapi.yml
 name: Aviation Edge
 tags:
 - Airlines
@@ -25,7 +66,20 @@ tags:
 - Flight Data
 - Real-Time
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/aviation-edge.png
 access: 3rd-Party
 created: '2025-02-06'
 modified: '2026-04-19'
