@@ -1,0 +1,20 @@
+{
+  "provider": "aviation-edge",
+  "sources": [
+    "aviation-edge-real-time-api-openapi.yml",
+    "aviation-edge-reference-api-openapi.yml",
+    "aviation-edge-satellites-api-openapi.yml",
+    "aviation-edge-schedules-api-openapi.yml"
+  ],
+  "outputs": [
+    "aviation-edge-real-time-api-openapi.yml",
+    "aviation-edge-reference-api-openapi.yml",
+    "aviation-edge-satellites-api-openapi.yml",
+    "aviation-edge-schedules-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

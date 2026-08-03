@@ -1,0 +1,368 @@
+openapi: 3.1.0
+info:
+  title: Aviation Edge API
+  version: v2
+  description: |
+    Aviation Edge provides global aviation data including real-time flight
+    tracking, historical flight data, flight schedules, airline routes,
+    delays, airport/airline/aircraft reference data, NOTAMs, and satellite
+    tracking. All endpoints are JSON over HTTPS GET and require an API key
+    passed as the `key` query parameter.
+  contact:
+    name: Aviation Edge
+    url: https://aviation-edge.com/
+servers:
+  - url: https://aviation-edge.com/v2/public
+    description: Aviation Edge public v2 API
+tags:
+  - name: Real-Time
+    description: Real-time and live flight tracking
+  - name: Schedules
+    description: Airport schedules and flight timetables
+  - name: Reference
+    description: Static reference data
+  - name: Satellites
+    description: Satellite tracking data
+security:
+  - ApiKeyAuth: []
+paths:
+  /flights:
+    get:
+      tags: [Real-Time]
+      summary: Real-time flight tracker
+      description: Returns real-time flight positional data filterable by airline, airport, flight number, or status.
+      operationId: getRealTimeFlights
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: depIata
+          in: query
+          schema: { type: string }
+          description: Departure airport IATA code
+        - name: arrIata
+          in: query
+          schema: { type: string }
+          description: Arrival airport IATA code
+        - name: airlineIata
+          in: query
+          schema: { type: string }
+          description: Airline IATA code
+        - name: flightIata
+          in: query
+          schema: { type: string }
+          description: Flight IATA code
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [scheduled, active, landed, cancelled, incident, diverted]
+      responses:
+        '200':
+          description: Array of flight objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /flightsHistory:
+    get:
+      tags: [Real-Time]
+      summary: Historical flight tracker
+      operationId: getHistoricalFlights
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: code
+          in: query
+          required: true
+          schema: { type: string }
+          description: Airport IATA/ICAO code
+        - name: type
+          in: query
+          required: true
+          schema: { type: string, enum: [departure, arrival] }
+        - name: date_from
+          in: query
+          schema: { type: string, format: date }
+        - name: date_to
+          in: query
+          schema: { type: string, format: date }
+        - name: airline_iata
+          in: query
+          schema: { type: string }
+        - name: flight_num
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Historical flight data
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /timetable:
+    get:
+      tags: [Schedules]
+      summary: Flight schedules timetable
+      operationId: getTimetable
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: iataCode
+          in: query
+          required: true
+          schema: { type: string }
+        - name: type
+          in: query
+          required: true
+          schema: { type: string, enum: [departure, arrival] }
+        - name: airline_iata
+          in: query
+          schema: { type: string }
+        - name: flight_num
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Flight schedules
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /flightsFuture:
+    get:
+      tags: [Schedules]
+      summary: Future flight schedules
+      operationId: getFutureFlights
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: iataCode
+          in: query
+          required: true
+          schema: { type: string }
+        - name: type
+          in: query
+          required: true
+          schema: { type: string, enum: [departure, arrival] }
+        - name: date
+          in: query
+          required: true
+          schema: { type: string, format: date }
+      responses:
+        '200':
+          description: Future schedule entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /routes:
+    get:
+      tags: [Reference]
+      summary: Airline routes
+      operationId: getRoutes
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: departureIata
+          in: query
+          schema: { type: string }
+        - name: arrivalIata
+          in: query
+          schema: { type: string }
+        - name: airlineIata
+          in: query
+          schema: { type: string }
+        - name: flightNumber
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Route entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /airportDatabase:
+    get:
+      tags: [Reference]
+      summary: Airport reference database
+      operationId: getAirports
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: codeIataAirport
+          in: query
+          schema: { type: string }
+        - name: codeIso2Country
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Array of airports
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /airlineDatabase:
+    get:
+      tags: [Reference]
+      summary: Airline reference database
+      operationId: getAirlines
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: codeIataAirline
+          in: query
+          schema: { type: string }
+        - name: codeIso2Country
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Array of airlines
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /airplaneDatabase:
+    get:
+      tags: [Reference]
+      summary: Aircraft reference database
+      operationId: getAircraft
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: numberRegistration
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Array of aircraft
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /cityDatabase:
+    get:
+      tags: [Reference]
+      summary: City reference database
+      operationId: getCities
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: codeIataCity
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Array of cities
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /countryDatabase:
+    get:
+      tags: [Reference]
+      summary: Country reference database
+      operationId: getCountries
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: codeIso2Country
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Array of countries
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /autocomplete:
+    get:
+      tags: [Reference]
+      summary: Autocomplete cities, airports and stations
+      operationId: autocomplete
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: city
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Autocomplete matches
+          content:
+            application/json:
+              schema:
+                type: object
+  /nearby:
+    get:
+      tags: [Reference]
+      summary: Nearby airports by geolocation
+      operationId: getNearby
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: lat
+          in: query
+          required: true
+          schema: { type: number, format: double }
+        - name: lng
+          in: query
+          required: true
+          schema: { type: number, format: double }
+        - name: distance
+          in: query
+          schema: { type: integer }
+      responses:
+        '200':
+          description: Nearby airports
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+  /satelliteDetails:
+    get:
+      tags: [Satellites]
+      summary: Satellite tracking details
+      operationId: getSatelliteDetails
+      parameters:
+        - $ref: '#/components/parameters/Key'
+        - name: code
+          in: query
+          schema: { type: string }
+          description: NORAD catalog number
+        - name: launchYear
+          in: query
+          schema: { type: integer }
+        - name: intldes
+          in: query
+          schema: { type: string }
+          description: NSSDC international designator
+        - name: orbitalapogee
+          in: query
+          schema: { type: integer }
+        - name: limit
+          in: query
+          schema: { type: integer, maximum: 30000 }
+      responses:
+        '200':
+          description: Satellite metadata
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { type: object }
+components:
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: true
+      schema: { type: string }
+      description: Aviation Edge API key
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: key
