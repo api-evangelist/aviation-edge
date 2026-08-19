@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aviation Edge Real-Time Schedules API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Flight schedules timetable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/timetable",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "iataCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "airline_iata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flight_num",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Flight schedules timetable"
+        },
+        {
+          "info": {
+            "name": "Future flight schedules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/flightsFuture",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "iataCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Future flight schedules"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

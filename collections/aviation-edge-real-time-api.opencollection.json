@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aviation Edge Real-Time API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Real-Time",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Real-time flight tracker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/flights",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "depIata",
+                "value": "",
+                "type": "query",
+                "description": "Departure airport IATA code"
+              },
+              {
+                "name": "arrIata",
+                "value": "",
+                "type": "query",
+                "description": "Arrival airport IATA code"
+              },
+              {
+                "name": "airlineIata",
+                "value": "",
+                "type": "query",
+                "description": "Airline IATA code"
+              },
+              {
+                "name": "flightIata",
+                "value": "",
+                "type": "query",
+                "description": "Flight IATA code"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns real-time flight positional data filterable by airline, airport, flight number, or status."
+        },
+        {
+          "info": {
+            "name": "Historical flight tracker",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/flightsHistory",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Airport IATA/ICAO code"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "airline_iata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flight_num",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Historical flight tracker"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

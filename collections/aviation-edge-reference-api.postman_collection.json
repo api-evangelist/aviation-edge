@@ -1,0 +1,850 @@
+{
+  "item": [
+    {
+      "id": "1a0cc8f4-9fa4-47dc-b8f2-18ea2501bedd",
+      "name": "Reference",
+      "description": {
+        "content": "Static reference data",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e941d9fa-27f2-4815-8767-947be411615f",
+          "name": "Airline routes",
+          "request": {
+            "name": "Airline routes",
+            "description": {},
+            "url": {
+              "path": [
+                "routes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "departureIata",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "arrivalIata",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "airlineIata",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "flightNumber",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "07a19c40-e655-4213-b24e-4f34edb39af4",
+              "name": "Route entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "departureIata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "arrivalIata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "airlineIata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "flightNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbac1bda-6f82-41cf-8af3-924da816be95",
+          "name": "Airport reference database",
+          "request": {
+            "name": "Airport reference database",
+            "description": {},
+            "url": {
+              "path": [
+                "airportDatabase"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "codeIataAirport",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "codeIso2Country",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d3da06e9-9ff5-4b57-95e7-ffdb3cedbb38",
+              "name": "Array of airports",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airportDatabase"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "codeIataAirport",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "codeIso2Country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89fe4dd5-61d6-458e-85f4-d40672b9e28e",
+          "name": "Airline reference database",
+          "request": {
+            "name": "Airline reference database",
+            "description": {},
+            "url": {
+              "path": [
+                "airlineDatabase"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "codeIataAirline",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "codeIso2Country",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b695876-4939-4a7a-99f2-036c7a234b4d",
+              "name": "Array of airlines",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airlineDatabase"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "codeIataAirline",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "codeIso2Country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6609829a-3b4e-4517-a7fd-e9361806743d",
+          "name": "Aircraft reference database",
+          "request": {
+            "name": "Aircraft reference database",
+            "description": {},
+            "url": {
+              "path": [
+                "airplaneDatabase"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "numberRegistration",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b730d5b1-519e-4e0c-b38a-a5f879e8528f",
+              "name": "Array of aircraft",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "airplaneDatabase"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "numberRegistration",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18754c37-6051-49b1-acd8-62ee3a2d23e4",
+          "name": "City reference database",
+          "request": {
+            "name": "City reference database",
+            "description": {},
+            "url": {
+              "path": [
+                "cityDatabase"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "codeIataCity",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "806506e6-8914-466f-956c-2487167891ff",
+              "name": "Array of cities",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cityDatabase"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "codeIataCity",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e929ec2-7d83-4b64-adb8-e0edde2a5916",
+          "name": "Country reference database",
+          "request": {
+            "name": "Country reference database",
+            "description": {},
+            "url": {
+              "path": [
+                "countryDatabase"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "codeIso2Country",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "35db08a4-a123-46c3-8d3f-aa10f7cb26ef",
+              "name": "Array of countries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "countryDatabase"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "codeIso2Country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "97d03f05-3467-440e-ba7c-a709689d55fd",
+          "name": "Autocomplete cities, airports and stations",
+          "request": {
+            "name": "Autocomplete cities, airports and stations",
+            "description": {},
+            "url": {
+              "path": [
+                "autocomplete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "84c66ada-3a3d-4a41-bec6-53e3e9c59619",
+              "name": "Autocomplete matches",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "autocomplete"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e148a6ee-3896-4b60-a581-560783163bbe",
+          "name": "Nearby airports by geolocation",
+          "request": {
+            "name": "Nearby airports by geolocation",
+            "description": {},
+            "url": {
+              "path": [
+                "nearby"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "lat",
+                  "value": "<double>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "lng",
+                  "value": "<double>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "distance",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9735a153-7abf-43d6-b718-7342c8dee9f8",
+              "name": "Nearby airports",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "nearby"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lat",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "lng",
+                      "value": "<double>"
+                    },
+                    {
+                      "key": "distance",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://aviation-edge.com/v2/public",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "627a44dd-3ed7-47df-a352-65cd6ee748a9",
+    "name": "Aviation Edge Real-Time Reference API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Aviation Edge provides global aviation data including real-time flight\ntracking, historical flight data, flight schedules, airline routes,\ndelays, airport/airline/aircraft reference data, NOTAMs, and satellite\ntracking. All endpoints are JSON over HTTPS GET and require an API key\npassed as the `key` query parameter.\n\n\nContact Support:\n Name: Aviation Edge",
+      "type": "text/plain"
+    }
+  }
+}

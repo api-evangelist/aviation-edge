@@ -1,0 +1,253 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aviation Edge Real-Time Reference API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Airline routes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/routes",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "departureIata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "arrivalIata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "airlineIata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flightNumber",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Airline routes"
+        },
+        {
+          "info": {
+            "name": "Airport reference database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/airportDatabase",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "codeIataAirport",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "codeIso2Country",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Airport reference database"
+        },
+        {
+          "info": {
+            "name": "Airline reference database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/airlineDatabase",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "codeIataAirline",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "codeIso2Country",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Airline reference database"
+        },
+        {
+          "info": {
+            "name": "Aircraft reference database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/airplaneDatabase",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "numberRegistration",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Aircraft reference database"
+        },
+        {
+          "info": {
+            "name": "City reference database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/cityDatabase",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "codeIataCity",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "City reference database"
+        },
+        {
+          "info": {
+            "name": "Country reference database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/countryDatabase",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "codeIso2Country",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Country reference database"
+        },
+        {
+          "info": {
+            "name": "Autocomplete cities, airports and stations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/autocomplete",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Autocomplete cities, airports and stations"
+        },
+        {
+          "info": {
+            "name": "Nearby airports by geolocation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/nearby",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "lat",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lng",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "distance",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Nearby airports by geolocation"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

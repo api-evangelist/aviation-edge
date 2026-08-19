@@ -1,0 +1,283 @@
+{
+  "item": [
+    {
+      "id": "bbc13faa-5261-44a0-a46e-eaa937a702fc",
+      "name": "Schedules",
+      "description": {
+        "content": "Airport schedules and flight timetables",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "068664c6-f0e7-4fe8-b4a9-317f46a50208",
+          "name": "Flight schedules timetable",
+          "request": {
+            "name": "Flight schedules timetable",
+            "description": {},
+            "url": {
+              "path": [
+                "timetable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "iataCode",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "airline_iata",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "flight_num",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "528fbc30-1343-49f9-908f-08714bb3a06a",
+              "name": "Flight schedules",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "timetable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iataCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "airline_iata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "flight_num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e182aa6-8591-47a8-a741-f09f97ba8c52",
+          "name": "Future flight schedules",
+          "request": {
+            "name": "Future flight schedules",
+            "description": {},
+            "url": {
+              "path": [
+                "flightsFuture"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "iataCode",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "date",
+                  "value": "<date>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b18703f1-a83a-41f9-9ccc-5752b7646306",
+              "name": "Future schedule entries",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flightsFuture"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "iataCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://aviation-edge.com/v2/public",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "73ff0200-8025-4ddd-a410-53c897d55a4a",
+    "name": "Aviation Edge Real-Time Schedules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Aviation Edge provides global aviation data including real-time flight\ntracking, historical flight data, flight schedules, airline routes,\ndelays, airport/airline/aircraft reference data, NOTAMs, and satellite\ntracking. All endpoints are JSON over HTTPS GET and require an API key\npassed as the `key` query parameter.\n\n\nContact Support:\n Name: Aviation Edge",
+      "type": "text/plain"
+    }
+  }
+}

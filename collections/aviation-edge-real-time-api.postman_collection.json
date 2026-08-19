@@ -1,0 +1,323 @@
+{
+  "item": [
+    {
+      "id": "132d2421-5c0b-4e6a-b881-58fccb13d2a5",
+      "name": "Real-Time",
+      "description": {
+        "content": "Real-time and live flight tracking",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2ab81cdd-066a-4529-8f6b-94851806f43e",
+          "name": "Real-time flight tracker",
+          "request": {
+            "name": "Real-time flight tracker",
+            "description": {
+              "content": "Returns real-time flight positional data filterable by airline, airport, flight number, or status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "flights"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "depIata",
+                  "value": "<string>",
+                  "description": "Departure airport IATA code"
+                },
+                {
+                  "disabled": false,
+                  "key": "arrIata",
+                  "value": "<string>",
+                  "description": "Arrival airport IATA code"
+                },
+                {
+                  "disabled": false,
+                  "key": "airlineIata",
+                  "value": "<string>",
+                  "description": "Airline IATA code"
+                },
+                {
+                  "disabled": false,
+                  "key": "flightIata",
+                  "value": "<string>",
+                  "description": "Flight IATA code"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56494a58-e341-488a-9a03-96cbb4ef024b",
+              "name": "Array of flight objects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flights"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "depIata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "arrIata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "airlineIata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "flightIata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4d4ba01-a7b4-4ac6-be06-6d3ddbb96d68",
+          "name": "Historical flight tracker",
+          "request": {
+            "name": "Historical flight tracker",
+            "description": {},
+            "url": {
+              "path": [
+                "flightsHistory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Aviation Edge API key"
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "(Required) Airport IATA/ICAO code"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "airline_iata",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "flight_num",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "16553009-ff4b-4133-8cdc-792b2de6334c",
+              "name": "Historical flight data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "flightsHistory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "airline_iata",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "flight_num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://aviation-edge.com/v2/public",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b8de70d0-b09c-432e-a658-a5ebf142924b",
+    "name": "Aviation Edge Real-Time API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Aviation Edge provides global aviation data including real-time flight\ntracking, historical flight data, flight schedules, airline routes,\ndelays, airport/airline/aircraft reference data, NOTAMs, and satellite\ntracking. All endpoints are JSON over HTTPS GET and require an API key\npassed as the `key` query parameter.\n\n\nContact Support:\n Name: Aviation Edge",
+      "type": "text/plain"
+    }
+  }
+}

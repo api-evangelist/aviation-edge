@@ -1,0 +1,72 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aviation Edge Real-Time Satellites API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "key",
+      "value": "{{key}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Satellites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Satellite tracking details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://aviation-edge.com/v2/public/satelliteDetails",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Aviation Edge API key"
+              },
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "NORAD catalog number"
+              },
+              {
+                "name": "launchYear",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "intldes",
+                "value": "",
+                "type": "query",
+                "description": "NSSDC international designator"
+              },
+              {
+                "name": "orbitalapogee",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Satellite tracking details"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
