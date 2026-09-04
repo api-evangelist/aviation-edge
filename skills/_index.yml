@@ -1,0 +1,27 @@
+generated: '2026-09-04'
+method: generated
+source: >-
+  Generated from openapi/ in this repository plus conventions/, errors/, rate-limits/ and
+  data-model/. Aviation Edge publishes no skills or AGENTS.md of its own
+  (github.com/AviationEdgeAPI carries READMEs only, checked 2026-09-04).
+skills:
+- name: aviation-edge-track-live-flights
+  file: aviation-edge-track-live-flights.md
+  api: Aviation Edge Real-Time API
+  operations: [getRealTimeFlights, getAirlines, getAirports]
+  description: Track live flights by flight number, airline, route or geographic radius.
+- name: aviation-edge-airport-schedules
+  file: aviation-edge-airport-schedules.md
+  api: Aviation Edge Real-Time Schedules API
+  operations: [getTimetable, getHistoricalFlights, getFutureFlights]
+  description: Read an airport's departure or arrival timetable for now, a past range or a future date.
+- name: aviation-edge-notam-monitoring
+  file: aviation-edge-notam-monitoring.md
+  api: Aviation Edge NOTAMs API
+  operations: [getNotams]
+  description: Retrieve current and historical NOTAMs for an airport or FIR.
+- name: aviation-edge-reference-lookup
+  file: aviation-edge-reference-lookup.md
+  api: Aviation Edge Real-Time Reference API
+  operations: [getAirports, getAirlines, getAircraft, getAircraftTypes, getCities, getCountries, getTaxes, getTimezones, getRoutes, autocomplete, getNearby]
+  description: Resolve and search the static aviation reference databases.

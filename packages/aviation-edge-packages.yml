@@ -1,0 +1,50 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://github.com/AviationEdgeAPI (the provider's own GitHub account, linked from every
+  Aviation Edge product README), https://registry.npmjs.org/aviation-edge, and negative
+  searches of PyPI, RubyGems, Packagist and crates.io on 2026-09-04.
+summary:
+  package_count: 2
+  official_count: 2
+  registries:
+  - npm
+  - github
+  note: >-
+    Aviation Edge ships two thin first-party client wrappers, both unmaintained since 2017.
+    The npm package `aviation-edge` names "Aviation Edge" as its author and installs the
+    NodeJs-SDK code; the PHP SDK is published only as a single file in the provider's GitHub
+    account with no Packagist release. No Python, Ruby, Go, Java, .NET or Rust client exists,
+    first-party or otherwise, and the provider's own FAQ says it publishes no
+    implementation guides. Both SDKs predate the NOTAMs API (2026) and the
+    /planeTypeDatabase and /taxDatabase endpoints, so neither wraps the current surface.
+packages:
+- name: aviation-edge
+  language: javascript
+  registry: npm
+  official: true
+  url: https://www.npmjs.com/package/aviation-edge
+  repository: https://github.com/AviationEdgeAPI/NodeJs-SDK
+  install: npm install aviation-edge
+  version: 1.0.3
+  published: '2017-12-11'
+  license: MIT
+  note: >-
+    package.json declares author "Aviation Edge" and the provider's own NodeJs-SDK repository
+    carries the same code. Published once in 2017 and never updated; registry metadata read
+    from https://registry.npmjs.org/aviation-edge on 2026-09-04 (latest 1.0.3, last publish
+    2017-12-11, maintainer leopieters). Wraps a generic apiCall(endpoint, params) helper, so
+    it still functions against newer endpoints but documents none of them.
+- name: php-sdk
+  language: php
+  registry: github
+  official: true
+  url: https://github.com/AviationEdgeAPI/php-sdk
+  repository: https://github.com/AviationEdgeAPI/php-sdk
+  install: Download aviationEdge.php from the repository; there is no Composer/Packagist release.
+  version: null
+  published: '2017-11-21'
+  note: >-
+    version is null because the SDK is distributed as a single unversioned PHP file with no
+    registry entry — a Packagist search for "aviation-edge" returns zero results, so a
+    consumer cannot pin a version either. `published` is the last push to the repository.

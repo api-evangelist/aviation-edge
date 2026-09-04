@@ -1,0 +1,64 @@
+overlay: 1.0.0
+info:
+  title: Aviation Edge schedules-api enhancements
+  version: 1.0.0
+extends: aviation-edge-schedules-api-openapi.yml
+x-provenance:
+  generated: '2026-09-04'
+  method: generated
+  source: Generated from this repository's artifacts; captures API Evangelist enhancements without mutating openapi/aviation-edge-schedules-api-openapi.yml
+actions:
+- target: $.info
+  description: Record the harvest provenance of this contract on the document itself.
+  update:
+    x-api-evangelist-source: Harvested from github.com/AviationEdgeAPI README request/response examples and https://aviation-edge.com/developers/,
+      then confirmed with live unauthenticated probes of https://aviation-edge.com/v2/public/ on 2026-09-04.
+- target: $.info
+  description: State the error contract in the document itself, because the API returns most errors with HTTP 200.
+  update:
+    x-error-envelope:
+      shape: '{"error"|"message": <string|object>, "success": false}'
+      http_status_on_error: 200 for auth and most usage errors; 400 on /flightsHistory and /flightsFuture for a
+        missing required parameter; 404 with an HTML body for an unknown path
+      catalog: errors/aviation-edge-problem-types.yml
+- target: $.info
+  description: Declare the runtime semantics an agent needs before calling.
+  update:
+    x-conventions:
+      read_only: true
+      idempotency: na
+      reversibility: na
+      pagination: none (limit is a result cap, max 30000, on /flights and /satelliteDetails)
+      rate_limit_headers: none observed
+      artifact: conventions/aviation-edge-conventions.yml
+- target: $.info
+  description: Record the quota model, which is monthly per key and invisible at runtime.
+  update:
+    x-rate-limits:
+      model: monthly call allowance per subscription key
+      tiers:
+        Developer: 30000
+        Business: 100000
+        Business Gold: 500000
+        Unlimited Data: null
+      artifact: rate-limits/aviation-edge-rate-limits.yml
+- target: $.paths['/timetable'].get
+  description: 'Classify getTimetable for agent execution: a read with no side effects.'
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      subject: optional
+      token:
+        max-ttl: 3600
+      audit: none
+- target: $.paths['/flightsFuture'].get
+  description: 'Classify getFutureFlights for agent execution: a read with no side effects.'
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      subject: optional
+      token:
+        max-ttl: 3600
+      audit: none

@@ -1,0 +1,150 @@
+openapi: 3.2.0
+info:
+  title: Aviation Edge NOTAMs API
+  version: v2
+  description: 'Aviation Edge provides global aviation data: real-time flight tracking, historical and future airport
+    schedules, airline routes, NOTAMs, satellite tracking, and static airport, airline, aircraft, city, country,
+    tax and timezone databases. Every endpoint is JSON over HTTPS GET and requires an API key passed as the `key`
+    query parameter. Errors are returned as HTTP 200 with an `{"error"|"message": ..., "success": false}` envelope
+    on most endpoints; /flightsHistory and /flightsFuture answer HTTP 400 when a required parameter is missing.'
+  contact:
+    name: Aviation Edge
+    url: https://aviation-edge.com/contact/
+  termsOfService: https://aviation-edge.com/api-terms-of-service/
+externalDocs:
+  url: https://aviation-edge.com/developers/
+  description: Aviation Edge developer documentation
+x-provenance:
+  generated: '2026-09-04'
+  method: searched
+  source: 'Harvested from Aviation Edge first-party sources: the provider GitHub account github.com/AviationEdgeAPI
+    (Aviation-Edge-Complete-API, Notam-API, Satellite-Tracker-API, Airport-Schedules-API, Historical-Schedules-API,
+    Future-Schedules-API, Airline-Routes-API, Autocomplete-API, Static-Aviation-APIs READMEs) and the developer
+    documentation at https://aviation-edge.com/developers/. Paths and required parameters were confirmed with unauthenticated
+    live probes against https://aviation-edge.com/v2/public/ on 2026-09-04.'
+servers:
+- url: https://aviation-edge.com/v2/public
+  description: Aviation Edge public v2 API
+security:
+- ApiKeyAuth: []
+tags:
+- name: NOTAMs
+  description: Airport and FIR NOTAM data
+paths:
+  /notams:
+    get:
+      tags:
+      - NOTAMs
+      summary: Airport and FIR NOTAMs
+      description: Returns real-time and historical NOTAMs for an airport (by IATA or ICAO code) or for a Flight
+        Information Region (by location code), optionally bounded by a date range.
+      operationId: getNotams
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: iata
+        in: query
+        schema:
+          type: string
+        description: Airport IATA code
+      - name: icao
+        in: query
+        schema:
+          type: string
+        description: Airport ICAO code
+      - name: location
+        in: query
+        schema:
+          type: string
+        description: FIR location code, used instead of an airport code
+      - name: date_from
+        in: query
+        schema:
+          type: string
+        description: Start of the historical window, YYYY-MM-DD
+      - name: date_to
+        in: query
+        schema:
+          type: string
+        description: End of the historical window, YYYY-MM-DD
+      responses:
+        '200':
+          description: Airport and FIR NOTAMs result set. An error is also returned with HTTP 200 and the Error
+            envelope.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notam'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - location: lfpo
+                    number: a4247/26
+                    class: international
+                    startdateutc: '2026-08-06t22:00:00'
+                    enddateutc: '2027-06-10t22:00:00'
+                    condition: a4247/26 notamnq) ... restriction of use of ad lfpo due to repair work on runway
+                      06/24.
+      externalDocs:
+        url: https://aviation-edge.com/notam-api/
+        description: Provider documentation
+components:
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Aviation Edge API key
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message returned for some endpoints
+        message:
+          type: string
+          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
+        success:
+          type: boolean
+          description: Always false on an error response
+      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key
+        is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter.
+        Observed by live probe 2026-09-04.
+      examples:
+      - message: Missing API Key
+        success: false
+      - error: Invalid API Key
+        success: false
+    Notam:
+      type: object
+      properties:
+        location:
+          type: string
+          description: Airport ICAO code or FIR location code
+        number:
+          type: string
+          description: NOTAM number, e.g. a4247/26
+        class:
+          type: string
+          description: NOTAM class, e.g. international
+        startdateutc:
+          type: string
+          description: Start of validity, UTC
+        enddateutc:
+          type: string
+          description: End of validity, UTC
+        condition:
+          type: string
+          description: The original NOTAM message text
+      description: A NOTAM record for an airport or FIR.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: key
+      description: API key issued with an Aviation Edge subscription, passed as the `key` query parameter.

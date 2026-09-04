@@ -1,0 +1,157 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/_original/aviation-edge-openapi.yml (components.schemas, themselves built from the
+  response examples published in the provider's own READMEs at https://github.com/AviationEdgeAPI)
+  and https://aviation-edge.com/developers/.
+summary:
+  entity_count: 15
+  relationship_style: shared-code-reference
+  note: >-
+    Aviation Edge has no opaque object ids and no $ref links between response objects. The
+    entity graph is joined entirely on industry code schemes — IATA and ICAO airport, airline
+    and aircraft codes, ISO country codes, NORAD catalog numbers — so every relationship below
+    is a code match a consumer performs client-side, not a link the API resolves. The static
+    databases each carry a surrogate id (airportId, airlineId, cityId, countryId, taxId,
+    planeTypeId, airplaneId), but no endpoint accepts one as a filter, which makes those ids
+    display-only.
+entities:
+- name: Flight
+  source_operations: [getRealTimeFlights]
+  key: flight.iataNumber / flight.icaoNumber
+  description: A live tracked flight with position, speed and status.
+- name: ScheduleFlight
+  source_operations: [getTimetable, getHistoricalFlights]
+  key: flight.iataNumber + departure.scheduledTime
+  description: An airport timetable record with gates, terminals, baggage belts and delays.
+- name: FutureFlight
+  source_operations: [getFutureFlights]
+  key: flight.iataNumber + weekday
+  description: An algorithmically projected future schedule record.
+- name: Route
+  source_operations: [getRoutes]
+  key: airlineIata + flightNumber + departureIata
+  description: A static airline route between two airports.
+- name: Airport
+  source_operations: [getAirports]
+  key: codeIataAirport
+  description: A static airport record with coordinates, timezone and country.
+- name: Airline
+  source_operations: [getAirlines]
+  key: codeIataAirline
+  description: A static airline record with callsign, hub, fleet size and status.
+- name: Airplane
+  source_operations: [getAircraft]
+  key: numberRegistration
+  description: An individual airframe with construction, delivery and status history.
+- name: PlaneType
+  source_operations: [getAircraftTypes]
+  key: codeIataAircraft
+  description: An aircraft type.
+- name: City
+  source_operations: [getCities]
+  key: codeIataCity
+  description: A static city record.
+- name: Country
+  source_operations: [getCountries]
+  key: codeIso2Country
+  description: A static country record with currency, continent and phone prefix.
+- name: Tax
+  source_operations: [getTaxes]
+  key: codeIataTax
+  description: An IATA aviation tax code.
+- name: Timezone
+  source_operations: [getTimezones]
+  key: unknown
+  description: >-
+    An airport timezone record. No response example is published for /timezoneDatabase, so
+    its fields are not asserted here.
+- name: Location
+  source_operations: [autocomplete, getNearby]
+  key: code
+  description: An airport, city, rail or bus station returned by search and proximity lookups.
+- name: Satellite
+  source_operations: [getSatelliteDetails]
+  key: code (NORAD catalog number)
+  description: An orbiting satellite or object with propagated position and TLE set.
+- name: Notam
+  source_operations: [getNotams]
+  key: number
+  description: A NOTAM for an airport or FIR, carrying the original message text.
+relationships:
+- from: Flight
+  to: Airport
+  type: has_one
+  via: departure.iataCode / arrival.iataCode -> Airport.codeIataAirport
+- from: Flight
+  to: Airline
+  type: has_one
+  via: airline.iataCode -> Airline.codeIataAirline
+- from: Flight
+  to: Airplane
+  type: has_one
+  via: aircraft.regNumber -> Airplane.numberRegistration (also aircraft.icao24 -> Airplane.hexIcaoAirplane)
+- from: ScheduleFlight
+  to: Airport
+  type: has_one
+  via: departure.iataCode / arrival.iataCode -> Airport.codeIataAirport
+- from: ScheduleFlight
+  to: Airline
+  type: has_one
+  via: airline.iataCode -> Airline.codeIataAirline
+- from: FutureFlight
+  to: PlaneType
+  type: has_one
+  via: aircraft.modelCode -> PlaneType.codeIataAircraft
+- from: Route
+  to: Airport
+  type: has_one
+  via: departureIata / arrivalIata -> Airport.codeIataAirport
+- from: Route
+  to: Airline
+  type: has_one
+  via: airlineIata -> Airline.codeIataAirline
+- from: Route
+  to: Airplane
+  type: has_one
+  via: regNumber -> Airplane.numberRegistration
+- from: Airport
+  to: City
+  type: belongs_to
+  via: codeIataCity -> City.codeIataCity
+- from: Airport
+  to: Country
+  type: belongs_to
+  via: codeIso2Country -> Country.codeIso2Country
+- from: City
+  to: Country
+  type: belongs_to
+  via: codeIso2Country -> Country.codeIso2Country
+- from: Airline
+  to: Country
+  type: belongs_to
+  via: codeIso2Country -> Country.codeIso2Country
+- from: Airline
+  to: Airport
+  type: has_one
+  via: codeHub -> Airport.codeIataAirport
+- from: Airplane
+  to: Airline
+  type: belongs_to
+  via: codeIataAirline -> Airline.codeIataAirline
+- from: Airplane
+  to: PlaneType
+  type: has_one
+  via: codeIataPlaneShort -> PlaneType.codeIataAircraft
+- from: Notam
+  to: Airport
+  type: has_one
+  via: location -> Airport.codeIcaoAirport (airport NOTAMs only; FIR NOTAMs use an FIR location code)
+- from: Location
+  to: City
+  type: belongs_to
+  via: cityCode -> City.codeIataCity
+- from: Location
+  to: Country
+  type: belongs_to
+  via: countryCode -> Country.codeIso2Country

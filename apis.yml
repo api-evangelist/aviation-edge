@@ -1,6 +1,5 @@
 aid: aviation-edge
-url: >-
-  https://raw.githubusercontent.com/api-evangelist/aviation-edge/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/aviation-edge/refs/heads/main/apis.yml
 apis:
 - aid: aviation-edge:aviation-edge
   name: Aviation Edge
@@ -12,52 +11,86 @@ apis:
   - Real-Time
   humanURL: https://aviation-edge.com/
   properties:
-  - url: ' https://aviation-edge.com/satellite-tracking-api/'
-    type: Documentation
-  description: >-
-    Aviation Edge API provides comprehensive aviation data including real-time flight tracking, airport
-    information, airline schedules, aircraft data, and satellite tracking for global aviation intelligence.
-  baseURL: https://aviation-edge.com/
+  - type: OpenAPI
+    url: openapi/_original/aviation-edge-openapi.yml
+  - type: Documentation
+    url: https://aviation-edge.com/developers/
+  description: Aviation Edge API provides comprehensive aviation data including real-time flight tracking, airport information,
+    airline schedules, aircraft data, and satellite tracking for global aviation intelligence.
+  baseURL: https://aviation-edge.com/v2/public
 - aid: aviation-edge:aviation-edge-real-time-api
   name: Aviation Edge Real-Time API
   description: Real-time and live flight tracking
   humanURL: https://aviation-edge.com/
-  baseURL: https://aviation-edge.com/
+  baseURL: https://aviation-edge.com/v2/public
   tags:
   - Real-Time
   properties:
   - type: OpenAPI
     url: openapi/aviation-edge-real-time-api-openapi.yml
+  - type: Overlay
+    url: overlays/aviation-edge-real-time-api-overlay.yaml
+  - type: Documentation
+    url: https://aviation-edge.com/flight-radar-and-tracker-api/
 - aid: aviation-edge:aviation-edge-reference-api
   name: Aviation Edge Reference API
   description: Static reference data
   humanURL: https://aviation-edge.com/
-  baseURL: https://aviation-edge.com/
+  baseURL: https://aviation-edge.com/v2/public
   tags:
   - Reference
   properties:
   - type: OpenAPI
     url: openapi/aviation-edge-reference-api-openapi.yml
+  - type: Overlay
+    url: overlays/aviation-edge-reference-api-overlay.yaml
+  - type: Documentation
+    url: https://aviation-edge.com/airport-database-api/
 - aid: aviation-edge:aviation-edge-satellites-api
   name: Aviation Edge Satellites API
   description: Satellite tracking data
   humanURL: https://aviation-edge.com/
-  baseURL: https://aviation-edge.com/
+  baseURL: https://aviation-edge.com/v2/public
   tags:
   - Satellites
   properties:
   - type: OpenAPI
     url: openapi/aviation-edge-satellites-api-openapi.yml
+  - type: Overlay
+    url: overlays/aviation-edge-satellites-api-overlay.yaml
+  - type: Documentation
+    url: https://aviation-edge.com/satellite-tracking-api/
 - aid: aviation-edge:aviation-edge-schedules-api
   name: Aviation Edge Schedules API
   description: Airport schedules and flight timetables
   humanURL: https://aviation-edge.com/
-  baseURL: https://aviation-edge.com/
+  baseURL: https://aviation-edge.com/v2/public
   tags:
   - Schedules
   properties:
   - type: OpenAPI
     url: openapi/aviation-edge-schedules-api-openapi.yml
+  - type: Overlay
+    url: overlays/aviation-edge-schedules-api-overlay.yaml
+  - type: Documentation
+    url: https://aviation-edge.com/flight-schedule-and-timetable-of-airlines-and-airports/
+- aid: aviation-edge:aviation-edge-notams-api
+  name: Aviation Edge NOTAMs API
+  description: Real-time and historical NOTAM data for airports and Flight Information Regions, by IATA code, ICAO code or
+    FIR location code.
+  humanURL: https://aviation-edge.com/notam-api/
+  baseURL: https://aviation-edge.com/v2/public
+  tags:
+  - NOTAMs
+  - Aviation
+  - Flight Safety
+  properties:
+  - type: OpenAPI
+    url: openapi/aviation-edge-notams-api-openapi.yml
+  - type: Overlay
+    url: overlays/aviation-edge-notams-api-overlay.yaml
+  - type: Documentation
+    url: https://aviation-edge.com/notam-api/
 name: Aviation Edge
 tags:
 - Airlines
@@ -94,16 +127,18 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/aviation-edge.png
 access: 3rd-Party
 created: '2025-02-06'
-modified: '2026-04-19'
+modified: '2026-09-04'
 position: Consuming
-description: >-
-  Aviation Edge is a leading provider of aviation data and technology solutions for the global aviation industry. The company offers comprehensive and accurate data sets that cover everything from flight
-  schedules and airline information to airport details and aircraft data.
+description: Aviation Edge is a leading provider of aviation data and technology solutions for the global aviation industry.
+  The company offers comprehensive and accurate data sets that cover everything from flight schedules and airline information
+  to airport details and aircraft data.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 specificationVersion: '0.23'
 common:
+- type: Website
+  url: https://aviation-edge.com/
 - type: AgenticAccess
   url: agentic-access/aviation-edge-agentic-access.yml
 - type: DomainSecurity
@@ -113,8 +148,67 @@ common:
 - type: Portal
   url: https://aviation-edge.com/developers/
 - type: GitHubOrganization
-  url: https://github.com/aviation-edge
+  url: https://github.com/AviationEdgeAPI
 - type: LinkedIn
   url: https://www.linkedin.com/company/aviation-edge/
-- url: https://aviation-edge.com/feed/
+- url: https://aviation-edge.com/blog/
   type: Blog
+- type: Packages
+  url: packages/aviation-edge-packages.yml
+- type: SDKs
+  url: packages/aviation-edge-packages.yml
+- type: X-MCPServerCandidate
+  url: mcp/aviation-edge-mcp.yml
+- type: LLMsTxt
+  url: llms/aviation-edge-llms.txt
+- type: Conformance
+  url: conformance/aviation-edge-conformance.yml
+- type: ErrorCatalog
+  url: errors/aviation-edge-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/aviation-edge-lifecycle.yml
+- type: Conventions
+  url: conventions/aviation-edge-conventions.yml
+- type: DataModel
+  url: data-model/aviation-edge-data-model.yml
+- type: Sandbox
+  url: sandbox/aviation-edge-sandbox.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Plans
+  url: plans/aviation-edge-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/aviation-edge-rate-limits.yml
+- type: FinOps
+  url: finops/aviation-edge-finops.yml
+- type: Documentation
+  url: https://aviation-edge.com/developers/
+- type: APIReference
+  url: https://aviation-edge.com/developers/
+- type: GettingStarted
+  url: https://aviation-edge.com/developers/
+- type: Pricing
+  url: https://aviation-edge.com/premium-api/
+- type: SignUp
+  url: https://aviation-edge.com/premium-api/
+- type: Login
+  url: https://aviation-edge.com/subscribe/login.php
+- type: TermsOfService
+  url: https://aviation-edge.com/api-terms-of-service/
+- type: PrivacyPolicy
+  url: https://aviation-edge.com/privacy-policy/
+- type: Support
+  url: https://aviation-edge.com/contact/
+- type: HelpCenter
+  url: https://aviation-edge.com/frequently-asked-questions/
+- type: Console
+  url: https://aviation-edge.com/get.php
+- type: ServiceLevelAgreement
+  url: https://aviation-edge.com/service-level-agreement/
+- type: BlogRSS
+  url: https://aviation-edge.com/feed/
+x-enrichment:
+  date: '2026-09-04'
+  status: enriched
+  artifacts_added: 21
+  pass: local-v3

@@ -1,0 +1,96 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  Derived from openapi/_original/aviation-edge-openapi.yml. No Aviation Edge MCP server
+  exists: npm and GitHub searches for "aviation-edge mcp" return nothing from the provider,
+  https://aviation-edge.com/mcp returns HTTP 404, and mcp.aviation-edge.com does not resolve
+  (probed 2026-09-04).
+status: candidate
+name: aviation-edge
+description: >-
+  Candidate MCP tool surface for the Aviation Edge v2 public API, one tool per published REST
+  operation. Nobody ships this server; it is a proposal derived from the provider's contract,
+  not a callable endpoint.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+auth:
+  type: api-key
+  parameter: key
+  location: query
+  note: >-
+    Every operation requires a subscription API key passed as the `key` query parameter;
+    there is no free or trial key (https://aviation-edge.com/free-api-key/).
+tools:
+- name: get_real_time_flights
+  operation: getRealTimeFlights
+  path: /flights
+  description: Track live flights worldwide, filtered by airline, airport, flight number or radius.
+- name: get_historical_flights
+  operation: getHistoricalFlights
+  path: /flightsHistory
+  description: Retrieve a historical departure or arrival schedule for an airport and date range.
+- name: get_timetable
+  operation: getTimetable
+  path: /timetable
+  description: Retrieve the real-time departure or arrival timetable of an airport.
+- name: get_future_flights
+  operation: getFutureFlights
+  path: /flightsFuture
+  description: Retrieve the schedule of an airport for a future date.
+- name: get_routes
+  operation: getRoutes
+  path: /routes
+  description: Look up airline routes by departure airport, airline or flight number.
+- name: get_airports
+  operation: getAirports
+  path: /airportDatabase
+  description: Look up airports by IATA code or country.
+- name: get_airlines
+  operation: getAirlines
+  path: /airlineDatabase
+  description: Look up airlines by IATA code or country.
+- name: get_aircraft
+  operation: getAircraft
+  path: /airplaneDatabase
+  description: Look up individual airframes by registration, ICAO hex address or operator.
+- name: get_aircraft_types
+  operation: getAircraftTypes
+  path: /planeTypeDatabase
+  description: Look up aircraft types by IATA aircraft code.
+- name: get_cities
+  operation: getCities
+  path: /cityDatabase
+  description: Look up cities by IATA city code or country.
+- name: get_countries
+  operation: getCountries
+  path: /countryDatabase
+  description: Look up countries by ISO code or name.
+- name: get_taxes
+  operation: getTaxes
+  path: /taxDatabase
+  description: Look up aviation tax codes.
+- name: get_timezones
+  operation: getTimezones
+  path: /timezoneDatabase
+  description: Retrieve the airport timezone database.
+- name: autocomplete_locations
+  operation: autocomplete
+  path: /autocomplete
+  description: Autocomplete airports, cities and stations from a partial query.
+- name: get_nearby_locations
+  operation: getNearby
+  path: /nearby
+  description: Find airports and cities within a radius of a coordinate.
+- name: get_satellite_details
+  operation: getSatelliteDetails
+  path: /satelliteDetails
+  description: Track orbiting satellites and objects by NORAD code, launch year or orbit.
+- name: get_notams
+  operation: getNotams
+  path: /notams
+  description: Retrieve real-time and historical NOTAMs for an airport or FIR.

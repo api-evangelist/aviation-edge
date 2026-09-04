@@ -1,0 +1,77 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://aviation-edge.com/service-level-agreement/, https://aviation-edge.com/quality-metrics/,
+  https://aviation-edge.com/api-terms-of-service/,
+  https://aviation-edge.com/cancellation-refund-and-subscription-fees/ and
+  openapi/_original/aviation-edge-openapi.yml (probed and read 2026-09-04).
+versioning:
+  scheme: url-path
+  current: v2
+  evidence: https://aviation-edge.com/v2/public
+  policy_published: false
+  note: >-
+    The major version is carried in the path (/v2/public). Aviation Edge publishes no
+    versioning policy, no v1 sunset record and no statement of how a v3 would be introduced.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation headers observed on live responses,
+    and no operation in the contract is marked deprecated. The free API key was withdrawn
+    (https://aviation-edge.com/free-api-key/) with a notice on the page and no dated
+    deprecation window, which is the only product retirement on record.
+status_page:
+  published: false
+  url: null
+  note: >-
+    The site navigation renders a "Status" label but it is a decorative list item with no
+    href on every page checked; no status.aviation-edge.com or third-party status page
+    exists. Uptime is reported after the fact on the Quality Metrics page instead.
+sla:
+  published: true
+  url: https://aviation-edge.com/service-level-agreement/
+  scope: static data only
+  commitments:
+  - metric: server uptime
+    target: 99.5% monthly average
+    reported: 99.98%
+    applies_to: [Developer, Business, Business Gold]
+  - metric: average speed of data transfer
+    target: < 1 second (500ms on the quality metrics page)
+    reported: 231ms
+    applies_to: [Developer, Business, Business Gold]
+    exclusions: dynamic data and large multi-string batches
+  - metric: phone answering speed
+    target: < 20 seconds monthly average
+    reported: 9 sec
+    applies_to: [Business Gold]
+  - metric: email response time
+    target: < 24 hours monthly average
+    reported: 7.5 hours
+    applies_to: [Business Gold]
+  remedy: >-
+    Data credit for each paid month in which the SLA was not met, applied within 30 days of
+    validation; Aviation Edge takes up to 60 days to investigate a claim. Liability is capped
+    at the fees paid for the months giving rise to the claim.
+  claims_contact: the quality control department, per the SLA page
+  reported_metrics_url: https://aviation-edge.com/quality-metrics/
+  reported_period: first half of the current year
+support:
+  channels:
+  - type: email
+    url: https://aviation-edge.com/contact/
+  - type: phone
+    note: 24/7 department; answering-speed metric applies to Business Gold only
+subscription:
+  billing: monthly, auto-renewing; 10% discount on annual payment
+  cancellation_url: https://aviation-edge.com/cancellation-refund-and-subscription-fees/
+  cancellation: >-
+    Self-serve from the dashboard Invoices tab, or by email at least 5 days (the pricing page
+    says 7 days) before the next renewal. Fees are non-refundable once renewed.
+data_retention:
+  historical_window: 1 year of historical schedules by default, extendable to 5 years on request
+  future_window: up to 1 year ahead, but not the next 7 days
+  evidence: https://aviation-edge.com/frequently-asked-questions/

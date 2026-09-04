@@ -3,90 +3,81 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Aviation Edge
 providerId: aviation-edge
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://aviation-edge.com/premium-api/ and https://aviation-edge.com/frequently-asked-questions/
+  for the published quotas; live unauthenticated probes of https://aviation-edge.com/v2/public/
+  on 2026-09-04 for the response headers.
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-04'
 tags:
-  - Airlines
-  - Airports
   - Aviation
-  - Flight Data
-  - Real-Time
   - Rate Limiting
   - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Aviation Edge API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+description: >-
+  Aviation Edge enforces a monthly API-call allowance per subscription key and publishes no
+  per-second or per-minute rate limit. This file replaces the 2026-05-04 scaffold, whose
+  10 requests/minute figure and X-RateLimit-* header set were placeholders that the provider
+  does not implement.
+limit_count: 4
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  note: >-
+    PROBED 2026-09-04: no RateLimit-*, X-RateLimit-* or Retry-After header is present on any
+    live response. The response headers carry only date, content-type, CORS, HSTS,
+    x-content-type-options, x-frame-options, x-powered-by and Cloudflare's own headers. An
+    agent cannot discover its remaining quota from the runtime signal — only from the account
+    dashboard.
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  throttled: unknown
+  quotaExceeded: unknown
+  note: >-
+    The behaviour on exhausting the monthly allowance is not documented and could not be
+    observed without a subscription key. The FAQ says an over-limit account is expected to
+    upgrade from the dashboard, with the higher limit applied immediately.
 limits:
-  - tier: free
-    name: Free Tier Default
+  - tier: Developer
+    name: Developer monthly allowance
     scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Aviation Edge
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
+    metric: requests
+    limit: 30000
     timeFrame: month
-    applies:
-      - Aviation Edge
-  - tier: professional
-    name: Professional Tier Default
+    source: https://aviation-edge.com/premium-api/
+  - tier: Business
+    name: Business monthly allowance
     scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Aviation Edge
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+    metric: requests
     limit: 100000
     timeFrame: month
-    applies:
-      - Aviation Edge
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Aviation Edge
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+    source: https://aviation-edge.com/premium-api/
+  - tier: Business Gold
+    name: Business Gold monthly allowance
+    scope: api-key
+    metric: requests
+    limit: 500000
+    timeFrame: month
+    source: https://aviation-edge.com/premium-api/
+  - tier: Unlimited Data
+    name: Unlimited plan
+    scope: api-key
+    metric: requests
+    limit: null
+    timeFrame: month
+    source: https://aviation-edge.com/premium-api/
+    note: Advertised as unlimited calls with "no usage restrictions*"; the asterisk is not expanded on the page.
+counting_rules:
+  - >-
+    One successful data pull is one API call regardless of how much data it returns — a whole
+    airport schedule and a single flight both count as one.
+  - >-
+    Error responses (incorrect endpoint use, or requested data unavailable) do not count
+    against the allowance, per the FAQ.
+  - >-
+    A single call can return up to 30,000 records on /flights and /satelliteDetails via the
+    limit parameter, which makes bulk pulls quota-cheap and is the provider's recommended
+    pattern.

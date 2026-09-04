@@ -1,0 +1,82 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  Live unauthenticated probes of https://aviation-edge.com/v2/public/ endpoints on 2026-09-04,
+  plus the provider FAQ (https://aviation-edge.com/frequently-asked-questions/) and the
+  developer documentation (https://aviation-edge.com/developers/).
+format: proprietary
+rfc9457: false
+summary:
+  error_count: 6
+  content_type: application/json
+  problem_json: false
+  note: >-
+    Aviation Edge does not use RFC 9457 problem+json. Most errors are returned with
+    HTTP 200 and a JSON envelope whose only machine signal is "success": false — an agent
+    that branches on the HTTP status alone will treat an authentication failure as a
+    successful empty result. Two endpoints (/flightsHistory, /flightsFuture) do return
+    HTTP 400 for a missing required parameter, so the behaviour is not even consistent
+    across the surface.
+envelope:
+  fields:
+  - name: success
+    type: boolean
+    note: false on every error response; the only reliable error signal
+  - name: message
+    type: string|object
+    note: >-
+      Used by most endpoints. On the HTTP 400 responses it is an object keyed by the missing
+      parameter name, e.g. {"type": "Missing param: type (str)"}.
+  - name: error
+    type: string
+    note: Used by /airlineDatabase and /notams in place of "message" for the same conditions.
+problem_types:
+- id: missing-api-key
+  title: Missing API Key
+  http_status: 200
+  detected_by: '{"message":"Missing API Key","success":false}'
+  evidence: https://aviation-edge.com/v2/public/flights
+  remediation: Pass a subscription key as the `key` query parameter.
+  note: >-
+    /airlineDatabase returns the variant {"error":"API Key missing","success":false} and
+    /notams returns {"error":"Missing API Key","success":false} for the same condition.
+- id: invalid-api-key
+  title: Invalid API Key
+  http_status: 200
+  detected_by: '{"error":"Invalid API Key","success":false}'
+  evidence: https://aviation-edge.com/v2/public/airportDatabase?key=INVALIDTESTKEY&codeIataAirport=AMS
+  remediation: >-
+    Check the key issued to the account dashboard; keys are emailed on subscription and
+    there is no free or trial key.
+- id: missing-required-parameter
+  title: Missing required parameter
+  http_status: 400
+  detected_by: '{"message": {"<param>": "Missing param: <param> (str)"}}'
+  evidence: https://aviation-edge.com/v2/public/flightsHistory
+  remediation: >-
+    Supply the parameters the operation marks required — code and type for /flightsHistory,
+    type, iataCode and date for /flightsFuture.
+  note: The only endpoints observed returning a 4xx status.
+- id: missing-selector
+  title: Missing selector for NOTAM lookup
+  http_status: 200
+  detected_by: '{"error":"Either \"icao\" or \"iata\" or \"location\" parameter must be provided","success":false}'
+  evidence: https://aviation-edge.com/v2/public/notams
+  remediation: Provide one of iata, icao or location.
+- id: no-record-found
+  title: No Record Found
+  http_status: 200
+  detected_by: Documented in the provider FAQ; returned when the endpoint is used incorrectly or the requested data is unavailable.
+  evidence: https://aviation-edge.com/frequently-asked-questions/
+  remediation: >-
+    Verify the endpoint, filters and code values. The FAQ states that a request returning an
+    error does not consume the account's monthly call quota.
+- id: unknown-endpoint
+  title: Unknown endpoint
+  http_status: 404
+  detected_by: 'HTML body: <title>404 Not Found</title> served by the API host, not JSON'
+  evidence: https://aviation-edge.com/v2/public/bogusEndpointXYZ
+  remediation: Check the endpoint name against https://aviation-edge.com/developers/.
+  note: >-
+    A 404 with an HTML body is the only way to distinguish a non-existent endpoint from a
+    failed call, and it breaks JSON parsing in clients that assume a JSON response.

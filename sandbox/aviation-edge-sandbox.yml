@@ -1,0 +1,46 @@
+generated: '2026-09-04'
+method: searched
+source: https://aviation-edge.com/get.php, https://aviation-edge.com/free-api-key/, https://aviation-edge.com/frequently-asked-questions/
+summary:
+  sandbox_environment: false
+  test_console: true
+  test_credentials: false
+  note: >-
+    Aviation Edge publishes an in-browser API console but no sandbox and no test credentials.
+    There is one environment — production — and one kind of key: a paid subscription key.
+    Nothing about this API can be exercised, by a human or an agent, before money changes hands.
+console:
+  name: Test the API key
+  url: https://aviation-edge.com/get.php
+  type: hosted-console
+  auth: bring your own subscription key
+  description: >-
+    A first-party form that builds and issues a live call: pick one of 14 APIs (Flights
+    Tracker, Flights Historical Timetable, Airport Timetable, List All Satellites, Satellite
+    Details, Cities, Countries, Airports, Airlines, Airplanes, Aircrafts, Taxes, Nearby,
+    Routes, Autocomplete), paste your API key, add optional parameters, and see the raw JSON.
+  published_example_parameters:
+  - flightIata=W8569
+  - airlineIata=W8
+  - depIata=MAD
+  - arrIata=GIG
+  - regNum=CGTCJ
+  - aircraftIcao=B752
+  - status=en-route
+  - limit=2
+  caveat: >-
+    The page warns that loading too much data in one call may crash the browser — there is no
+    server-side result cap other than the limit parameter.
+test_environment:
+  base_url: null
+  note: No separate sandbox host or /test path exists; every call from the console goes to production.
+test_credentials:
+  available: false
+  note: >-
+    The free API key was withdrawn — https://aviation-edge.com/free-api-key/ states the
+    feature was removed due to abuse, and the FAQ repeats that the free trial is disabled.
+    The substitute is a discounted first month of a paid subscription ($7-$39 depending on
+    tier, per the pricing page), after which the plan auto-renews at the full rate. Keys are
+    emailed on signup and shown in the account dashboard.
+fixtures: []
+time_simulation: null

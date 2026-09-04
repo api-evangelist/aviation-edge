@@ -1,0 +1,91 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/_original/aviation-edge-openapi.yml, live probes of https://aviation-edge.com/v2/public/
+  (2026-09-04), https://aviation-edge.com/developers/, https://aviation-edge.com/privacy-policy/
+  and https://aviation-edge.com/api-terms-of-service/.
+summary:
+  conforms_count: 3
+  checked: 11
+  note: >-
+    Aviation Edge publishes no compliance program, no certifications and no trust center, so
+    no Compliance pointer is emitted. What it does conform to is the aviation domain's own
+    identifier standards, which is the standard that matters for this market: every request
+    filter and response field is keyed on IATA and ICAO codes and ISO country codes, so a
+    consumer that already speaks aviation coding integrates without a translation layer.
+conformance:
+- id: iata-codes
+  name: IATA location, airline, aircraft and tax codes
+  conforms: true
+  domain_standard: true
+  evidence: >-
+    openapi/_original/aviation-edge-openapi.yml — codeIataAirport, codeIataAirline,
+    codeIataCity, codeIataAircraft, codeIataTax, iataCode, iataNumber, depIata/arrIata,
+    airlineIata, departureIata/arrivalIata are the primary selectors and response keys across
+    all 17 operations.
+  note: >-
+    IATA two- and three-letter coding is the interchange standard of the airline industry.
+    Aviation Edge exposes it as the primary key of the whole surface, including a dedicated
+    IATA tax-code database (/taxDatabase).
+- id: icao-codes
+  name: ICAO location, airline, aircraft and 24-bit address codes
+  conforms: true
+  domain_standard: true
+  evidence: >-
+    openapi/_original/aviation-edge-openapi.yml — codeIcaoAirport, codeIcaoAirline,
+    icaoCode, icaoNumber, hexIcaoAirplane (ICAO 24-bit address), and the NOTAM endpoint's
+    `icao` selector and FIR `location` code.
+- id: iso-3166
+  name: ISO 3166-1 alpha-2 and alpha-3 country codes
+  conforms: true
+  domain_standard: false
+  evidence: >-
+    openapi/_original/aviation-edge-openapi.yml — codeIso2Country filter on the airports,
+    airlines, cities and countries endpoints; codeIso2Country/codeIso3Country/numericIso in
+    the Country schema.
+- id: notam-icao-annex-15
+  name: ICAO Annex 15 NOTAM message format
+  conforms: false
+  partial: true
+  domain_standard: true
+  evidence: https://github.com/AviationEdgeAPI/Notam-API — the `condition` field carries the original NOTAM message text verbatim.
+  note: >-
+    The NOTAM text is passed through unparsed; Aviation Edge structures only location, number,
+    class and validity dates around it. It is not a parsed Annex 15 / AIXM representation, so
+    conformance is recorded as partial rather than true.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: The contract declares a single apiKey scheme in the query string; no OAuth surface exists on any host probed.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on aviation-edge.com and www.aviation-edge.com (probed 2026-09-04).
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  evidence: >-
+    Errors are returned as application/json with a proprietary {"error"|"message", "success"}
+    envelope, mostly under HTTP 200. See errors/aviation-edge-problem-types.yml.
+- id: rfc8594
+  name: RFC 8594 Sunset header
+  conforms: false
+  evidence: No Sunset or Deprecation header observed on live responses (probed 2026-09-04).
+- id: rfc9116
+  name: RFC 9116 security.txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on both hosts (probed 2026-09-04).
+- id: ietf-ratelimit-headers
+  name: IETF RateLimit header fields
+  conforms: false
+  evidence: No RateLimit-* or X-RateLimit-* header present on any probed response.
+- id: cors
+  name: Cross-origin resource sharing
+  conforms: true
+  evidence: >-
+    Live response headers on https://aviation-edge.com/v2/public/flights include
+    access-control-allow-origin *, access-control-allow-headers Content-Type,Authorization and
+    access-control-allow-methods GET,PUT,POST,DELETE,OPTIONS (probed 2026-09-04).
+  note: >-
+    The allowed-methods header advertises PUT, POST and DELETE, but no such operation is
+    published; the surface is GET-only.

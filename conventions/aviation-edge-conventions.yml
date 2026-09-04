@@ -1,0 +1,96 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://aviation-edge.com/developers/, https://aviation-edge.com/frequently-asked-questions/,
+  the provider's first-party READMEs at https://github.com/AviationEdgeAPI, live probes of
+  https://aviation-edge.com/v2/public/ (2026-09-04), and openapi/_original/aviation-edge-openapi.yml.
+surface:
+  style: REST
+  transport: HTTPS GET only
+  media_type: application/json
+  base_url: https://aviation-edge.com/v2/public
+  read_only: true
+  note: >-
+    Every published operation is a GET. There is no create, update or delete surface anywhere
+    in the contract, which is why the idempotency, reversibility and dry-run blocks below are
+    marked not applicable rather than absent.
+authentication:
+  style: api-key
+  location: query
+  parameter: key
+  docs: https://aviation-edge.com/developers/
+  note: >-
+    The key travels in the query string, so it lands in server logs, browser history and
+    referrer headers. There is no header alternative, no OAuth, and no per-scope key.
+pagination:
+  style: none
+  params:
+  - name: limit
+    applies_to: [/flights, /satelliteDetails]
+    max: 30000
+    note: A result cap, not a cursor — there is no offset, page or next-token parameter.
+  response_fields: []
+  note: >-
+    Collection endpoints return the entire matching set as a bare JSON array. Callers narrow
+    results with domain filters (airport, airline, date, coordinates), not with paging.
+filtering:
+  style: query-parameters
+  note: >-
+    Filter names are inconsistent between endpoints and the FAQ warns about it explicitly —
+    /flights uses camelCase (flightIata, depIata), /flightsHistory and /timetable use
+    snake_case (airline_iata, flight_number, date_from), and the static databases use a
+    codeIataX / codeIso2Country convention. Using a filter that does not exist for an
+    endpoint returns an error rather than being ignored.
+field_conventions:
+  identifiers: >-
+    Domain identifiers are IATA and ICAO codes plus GeoNames ids on airports and cities; there
+    are no opaque provider ids on the dynamic endpoints. Static database records carry their
+    own numeric surrogate ids (airportId, airlineId, cityId, countryId, taxId, planeTypeId).
+  casing: mixed — camelCase in responses, mixed camelCase/snake_case in request parameters
+  time: >-
+    All times in responses are the local time of the airport in question, per the FAQ; UTC is
+    used only in the NOTAM start/end fields. No timezone offset is attached to schedule times.
+error_envelope:
+  shape: '{"error"|"message": <string|object>, "success": false}'
+  http_status: >-
+    200 for authentication and most usage errors; 400 only on /flightsHistory and
+    /flightsFuture for a missing required parameter; 404 with an HTML body for an unknown
+    endpoint path.
+  reference: errors/aviation-edge-problem-types.yml
+rate_limit_signaling:
+  headers: []
+  status_on_exhaustion: unknown
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header was present on any live response
+    probed on 2026-09-04. Quota is a monthly call count enforced per subscription and visible
+    only on the account dashboard. See rate-limits/aviation-edge-rate-limits.yml.
+request_id: null
+idempotency:
+  coverage: na
+  applicable: false
+  mechanism: null
+  scope: []
+  note: >-
+    The API is read-only — every operation is a GET with no side effects, so there is no
+    replay hazard for an idempotency key to protect against. Recorded as not applicable
+    rather than none. No Idempotency pointer is emitted in apis.yml.
+reversibility:
+  grade: na
+  applicable: false
+  write_surface: none
+  reversal_operations: []
+  note: >-
+    No write, no reversal. An agent calling Aviation Edge cannot take an action that needs
+    taking back; the only consumption risk is the monthly call quota, and the FAQ states that
+    error responses do not count against it.
+dry_run_mode:
+  supported: na
+  applicable: false
+  note: >-
+    Not applicable to a read-only surface. There is also no test key or sandbox key to
+    rehearse against — the free tier was withdrawn (see sandbox/aviation-edge-sandbox.yml).
+versioning:
+  reference: lifecycle/aviation-edge-lifecycle.yml
+  scheme: url-path (/v2/)
+expansion: null
+metadata: null

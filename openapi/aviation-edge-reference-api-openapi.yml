@@ -1,21 +1,27 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Aviation Edge Real-Time Reference API
   version: v2
-  description: 'Aviation Edge provides global aviation data including real-time flight
-
-    tracking, historical flight data, flight schedules, airline routes,
-
-    delays, airport/airline/aircraft reference data, NOTAMs, and satellite
-
-    tracking. All endpoints are JSON over HTTPS GET and require an API key
-
-    passed as the `key` query parameter.
-
-    '
+  description: 'Aviation Edge provides global aviation data: real-time flight tracking, historical and future airport
+    schedules, airline routes, NOTAMs, satellite tracking, and static airport, airline, aircraft, city, country,
+    tax and timezone databases. Every endpoint is JSON over HTTPS GET and requires an API key passed as the `key`
+    query parameter. Errors are returned as HTTP 200 with an `{"error"|"message": ..., "success": false}` envelope
+    on most endpoints; /flightsHistory and /flightsFuture answer HTTP 400 when a required parameter is missing.'
   contact:
     name: Aviation Edge
-    url: https://aviation-edge.com/
+    url: https://aviation-edge.com/contact/
+  termsOfService: https://aviation-edge.com/api-terms-of-service/
+externalDocs:
+  url: https://aviation-edge.com/developers/
+  description: Aviation Edge developer documentation
+x-provenance:
+  generated: '2026-09-04'
+  method: searched
+  source: 'Harvested from Aviation Edge first-party sources: the provider GitHub account github.com/AviationEdgeAPI
+    (Aviation-Edge-Complete-API, Notam-API, Satellite-Tracker-API, Airport-Schedules-API, Historical-Schedules-API,
+    Future-Schedules-API, Airline-Routes-API, Autocomplete-API, Static-Aviation-APIs READMEs) and the developer
+    documentation at https://aviation-edge.com/developers/. Paths and required parameters were confirmed with unauthenticated
+    live probes against https://aviation-edge.com/v2/public/ on 2026-09-04.'
 servers:
 - url: https://aviation-edge.com/v2/public
   description: Aviation Edge public v2 API
@@ -30,6 +36,8 @@ paths:
       tags:
       - Reference
       summary: Airline routes
+      description: Returns the static operating routes of airlines, filterable by departure airport, airline or
+        flight number.
       operationId: getRoutes
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -37,32 +45,63 @@ paths:
         in: query
         schema:
           type: string
-      - name: arrivalIata
+        description: Departure airport IATA code
+      - name: departureIcao
         in: query
         schema:
           type: string
+        description: Departure airport ICAO code
       - name: airlineIata
         in: query
         schema:
           type: string
+        description: Airline IATA code
+      - name: airlineIcao
+        in: query
+        schema:
+          type: string
+        description: Airline ICAO code
       - name: flightNumber
         in: query
         schema:
           type: string
+        description: Flight number
       responses:
         '200':
-          description: Route entries
+          description: Airline routes result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Route'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - departureIata: OTP
+                    departureIcao: LROP
+                    departureTerminal: null
+                    departureTime: 09:15:00
+                    arrivalIata: TRN
+                    arrivalIcao: LIMF
+                    arrivalTerminal: null
+                    arrivalTime: '10:45:00'
+                    airlineIata: 0B
+                    airlineIcao: BMS
+                    flightNumber: '101'
+                    codeshares: null
+                    regNumber: YR-BAP
+      externalDocs:
+        url: https://aviation-edge.com/airline-routes-database-and-api/
+        description: Provider documentation
   /airportDatabase:
     get:
       tags:
       - Reference
-      summary: Airport reference database
+      summary: Airports database
+      description: 'Returns the static airports database: IATA and ICAO codes, coordinates, timezone, country and
+        city references.'
       operationId: getAirports
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -70,24 +109,47 @@ paths:
         in: query
         schema:
           type: string
+        description: Airport IATA code
       - name: codeIso2Country
         in: query
         schema:
           type: string
+        description: ISO 3166-1 alpha-2 country code
       responses:
         '200':
-          description: Array of airports
+          description: Airports database result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Airport'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - airportId: '7'
+                    nameAirport: Aachen/Merzbruck
+                    codeIataAirport: AAH
+                    codeIcaoAirport: EDKA
+                    latitudeAirport: '50.75'
+                    longitudeAirport: '6.133333'
+                    geonameId: '3247449'
+                    timezone: Europe/Berlin
+                    GMT: '1'
+                    phone: ''
+                    nameCountry: Germany
+                    codeIso2Country: DE
+                    codeIataCity: AAH
+      externalDocs:
+        url: https://aviation-edge.com/airport-database-api/
+        description: Provider documentation
   /airlineDatabase:
     get:
       tags:
       - Reference
-      summary: Airline reference database
+      summary: Airlines database
+      description: 'Returns the static airlines database: IATA and ICAO codes, callsign, hub, fleet size and status.'
       operationId: getAirlines
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -95,24 +157,49 @@ paths:
         in: query
         schema:
           type: string
+        description: Airline IATA code
       - name: codeIso2Country
         in: query
         schema:
           type: string
+        description: ISO 3166-1 alpha-2 country code
       responses:
         '200':
-          description: Array of airlines
+          description: Airlines database result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Airline'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - airlineId: '1'
+                    nameAirline: American Airlines
+                    codeIataAirline: AA
+                    iataPrefixAccounting: '1'
+                    codeIcaoAirline: AAL
+                    callsign: AMERICAN
+                    type: scheduled
+                    statusAirline: active
+                    sizeAirline: '963'
+                    ageFleet: '10.9'
+                    founding: '1934'
+                    codeHub: DFW
+                    nameCountry: United States
+                    codeIso2Country: US
+      externalDocs:
+        url: https://aviation-edge.com/airline-names-database/
+        description: Provider documentation
   /airplaneDatabase:
     get:
       tags:
       - Reference
-      summary: Aircraft reference database
+      summary: Airplanes database
+      description: 'Returns the static airframe database: registration, construction number, model, engines, delivery
+        dates and status.'
       operationId: getAircraft
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -120,20 +207,97 @@ paths:
         in: query
         schema:
           type: string
+        description: Aircraft registration number, e.g. HB-JVE
+      - name: hexIcaoAirplane
+        in: query
+        schema:
+          type: string
+        description: ICAO 24-bit hex address, e.g. 4B19EA
+      - name: codeIataAirline
+        in: query
+        schema:
+          type: string
+        description: Operator airline IATA code
       responses:
         '200':
-          description: Array of aircraft
+          description: Airplanes database result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Airplane'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - airplaneId: '55'
+                    numberRegistration: HB-JVE
+                    productionLine: Fokker 28/70/100
+                    airplaneIataType: F28 MK0100
+                    planeModel: F-100
+                    modelCode: F100
+                    hexIcaoAirplane: 4B19EA
+                    codeIataPlaneShort: '100'
+                    codeIataPlaneLong: F100
+                    constructionNumber: '11459'
+                    numberTestRgistration: PH-EZD
+                    rolloutDate: '0000-00-00'
+                    firstFlight: '1993-05-31T22:00:00.000Z'
+                    deliveryDate: '1993-06-29T22:00:00.000Z'
+                    registrationDate: '2004-05-11T22:00:00.000Z'
+                    lineNumber: ''
+                    planeSeries: ''
+                    codeIataAirline: 2L
+                    codeIcaoAirline: ''
+                    planeOwner: ''
+                    enginesCount: '2'
+                    enginesType: JET
+                    planeAge: '24'
+                    planeStatus: active
+      externalDocs:
+        url: https://aviation-edge.com/aircraft-database/
+        description: Provider documentation
+  /planeTypeDatabase:
+    get:
+      tags:
+      - Reference
+      summary: Airplane types database
+      description: 'Returns the static aircraft type database: IATA aircraft codes and type names.'
+      operationId: getAircraftTypes
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: codeIataAircraft
+        in: query
+        schema:
+          type: string
+        description: IATA aircraft type code
+      responses:
+        '200':
+          description: Airplane types database result set. An error is also returned with HTTP 200 and the Error
+            envelope.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlaneType'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - planeTypeId: '100'
+                    nameAircraft: Boeing 767-200 Freighter
+                    codeIataAircraft: 76X
+      externalDocs:
+        url: https://aviation-edge.com/aircraft-database/
+        description: Provider documentation
   /cityDatabase:
     get:
       tags:
       - Reference
-      summary: City reference database
+      summary: Cities database
+      description: 'Returns the static cities database: IATA city codes, coordinates, timezone and country.'
       operationId: getCities
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -141,20 +305,44 @@ paths:
         in: query
         schema:
           type: string
+        description: City IATA code
+      - name: codeIso2Country
+        in: query
+        schema:
+          type: string
+        description: ISO 3166-1 alpha-2 country code
       responses:
         '200':
-          description: Array of cities
+          description: Cities database result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/City'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - cityId: '1'
+                    nameCity: Anaa
+                    codeIataCity: AAA
+                    codeIso2Country: PF
+                    latitudeCity: '-17.05'
+                    longitudeCity: '-145.41667'
+                    timezone: Pacific/Tahiti
+                    GMT: '-10'
+                    geonameId: '0'
+      externalDocs:
+        url: https://aviation-edge.com/world-city-database/
+        description: Provider documentation
   /countryDatabase:
     get:
       tags:
       - Reference
-      summary: Country reference database
+      summary: Countries database
+      description: 'Returns the static countries database: ISO codes, currency, continent, population, capital and
+        phone prefix.'
       operationId: getCountries
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -162,20 +350,104 @@ paths:
         in: query
         schema:
           type: string
+        description: ISO 3166-1 alpha-2 country code
+      - name: nameCountry
+        in: query
+        schema:
+          type: string
+        description: Country name
       responses:
         '200':
-          description: Array of countries
+          description: Countries database result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Country'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - countryId: '1'
+                    nameCountry: Andorra
+                    codeIso2Country: AD
+                    codeIso3Country: AND
+                    numericIso: '20'
+                    population: '84000'
+                    capital: Andorra la Vella
+                    continent: EU
+                    nameCurrency: Euro
+                    codeCurrency: EUR
+                    codeFips: AN
+                    phonePrefix: '376'
+      externalDocs:
+        url: https://aviation-edge.com/countries-database/
+        description: Provider documentation
+  /taxDatabase:
+    get:
+      tags:
+      - Reference
+      summary: Aviation taxes database
+      description: 'Returns the static aviation tax code database: IATA tax codes and their names.'
+      operationId: getTaxes
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: codeIataTax
+        in: query
+        schema:
+          type: string
+        description: IATA tax code
+      responses:
+        '200':
+          description: Aviation taxes database result set. An error is also returned with HTTP 200 and the Error
+            envelope.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tax'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - taxId: '1'
+                    nameTax: Government Tax
+                    codeIataTax: AB
+      externalDocs:
+        url: https://aviation-edge.com/airline-tax-codes/
+        description: Provider documentation
+  /timezoneDatabase:
+    get:
+      tags:
+      - Reference
+      summary: Airport timezones database
+      description: Returns the static airport timezone database. Endpoint confirmed live on 2026-09-04; Aviation
+        Edge does not publish a response example for it, so no response schema is asserted here.
+      operationId: getTimezones
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      responses:
+        '200':
+          description: Airport timezones database result set. An error is also returned with HTTP 200 and the Error
+            envelope.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TimezoneRecord'
+      externalDocs:
+        url: https://aviation-edge.com/airport-time-zone-database/
+        description: Provider documentation
   /autocomplete:
     get:
       tags:
       - Reference
-      summary: Autocomplete cities, airports and stations
+      summary: Aviation autocomplete
+      description: Returns matching cities, airports, rail and bus stations for a partial text query. The response
+        is grouped into cities, airports and airportsByCities collections.
       operationId: autocomplete
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -183,46 +455,94 @@ paths:
         in: query
         schema:
           type: string
+        required: true
+        description: Partial name or code to search for
       responses:
         '200':
-          description: Autocomplete matches
-          content:
-            application/json:
-              schema:
-                type: object
-  /nearby:
-    get:
-      tags:
-      - Reference
-      summary: Nearby airports by geolocation
-      operationId: getNearby
-      parameters:
-      - $ref: '#/components/parameters/Key'
-      - name: lat
-        in: query
-        required: true
-        schema:
-          type: number
-          format: double
-      - name: lng
-        in: query
-        required: true
-        schema:
-          type: number
-          format: double
-      - name: distance
-        in: query
-        schema:
-          type: integer
-      responses:
-        '200':
-          description: Nearby airports
+          description: Aviation autocomplete result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Location'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - code: AMS
+                    name: Schiphol
+                    cityCode: AMS
+                    cityName: Amsterdam
+                    countryCode: NL
+                    countryName: Netherlands
+                    lat: 52.30907
+                    lng: 4.763385
+                    timezone: Europe/Amsterdam
+                    type: airport
+                    isRailRoad: 0
+                    isBusStation: 0
+      externalDocs:
+        url: https://aviation-edge.com/airport-autocomplete/
+        description: Provider documentation
+  /nearby:
+    get:
+      tags:
+      - Reference
+      summary: Nearby airports and cities
+      description: Returns airports, cities and other transport locations within a radius of a coordinate, with
+        the distance to each.
+      operationId: getNearby
+      parameters:
+      - $ref: '#/components/parameters/Key'
+      - name: lat
+        in: query
+        schema:
+          type: number
+        required: true
+        description: Latitude
+      - name: lng
+        in: query
+        schema:
+          type: number
+        required: true
+        description: Longitude
+      - name: distance
+        in: query
+        schema:
+          type: integer
+        description: Search radius
+      responses:
+        '200':
+          description: Nearby airports and cities result set. An error is also returned with HTTP 200 and the Error
+            envelope.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - code: BUW
+                    icao: WAWB
+                    name: Baubau
+                    cityCode: BUW
+                    cityName: Baubau
+                    countryCode: ID
+                    countryName: Indonesia
+                    lat: -5.466667
+                    lng: 122.63333
+                    timezone: Asia/Makassar
+                    type: airport
+                    isRailRoad: 0
+                    isBusStation: 0
+                    distance: 0
+      externalDocs:
+        url: https://aviation-edge.com/nearby-airport-and-city-api/
+        description: Provider documentation
 components:
   parameters:
     Key:
@@ -232,8 +552,290 @@ components:
       schema:
         type: string
       description: Aviation Edge API key
+  schemas:
+    Airline:
+      type: object
+      properties:
+        airlineId:
+          type: string
+        nameAirline:
+          type: string
+        codeIataAirline:
+          type: string
+        iataPrefixAccounting:
+          type: string
+        codeIcaoAirline:
+          type: string
+        callsign:
+          type: string
+        type:
+          type: string
+        statusAirline:
+          type: string
+        sizeAirline:
+          type: string
+        ageFleet:
+          type: string
+        founding:
+          type: string
+        codeHub:
+          type: string
+        nameCountry:
+          type: string
+        codeIso2Country:
+          type: string
+      description: An airline record from the static Airlines database.
+    Airplane:
+      type: object
+      properties:
+        airplaneId:
+          type: string
+        numberRegistration:
+          type: string
+        productionLine:
+          type: string
+        airplaneIataType:
+          type: string
+        planeModel:
+          type: string
+        modelCode:
+          type: string
+        hexIcaoAirplane:
+          type: string
+        codeIataPlaneShort:
+          type: string
+        codeIataPlaneLong:
+          type: string
+        constructionNumber:
+          type: string
+        numberTestRgistration:
+          type: string
+        rolloutDate:
+          type: string
+        firstFlight:
+          type: string
+        deliveryDate:
+          type: string
+        registrationDate:
+          type: string
+        lineNumber:
+          type: string
+        planeSeries:
+          type: string
+        codeIataAirline:
+          type: string
+        codeIcaoAirline:
+          type: string
+        planeOwner:
+          type: string
+        enginesCount:
+          type: string
+        enginesType:
+          type: string
+        planeAge:
+          type: string
+        planeStatus:
+          type: string
+      description: An individual airframe from the static Airplanes database.
+    Airport:
+      type: object
+      properties:
+        airportId:
+          type: string
+        nameAirport:
+          type: string
+        codeIataAirport:
+          type: string
+        codeIcaoAirport:
+          type: string
+        latitudeAirport:
+          type: string
+        longitudeAirport:
+          type: string
+        geonameId:
+          type: string
+        timezone:
+          type: string
+        GMT:
+          type: string
+        phone:
+          type: string
+        nameCountry:
+          type: string
+        codeIso2Country:
+          type: string
+        codeIataCity:
+          type: string
+      description: An airport record from the static Airports database.
+    City:
+      type: object
+      properties:
+        cityId:
+          type: string
+        nameCity:
+          type: string
+        codeIataCity:
+          type: string
+        codeIso2Country:
+          type: string
+        latitudeCity:
+          type: string
+        longitudeCity:
+          type: string
+        timezone:
+          type: string
+        GMT:
+          type: string
+        geonameId:
+          type: string
+      description: A city record from the static Cities database.
+    Country:
+      type: object
+      properties:
+        countryId:
+          type: string
+        nameCountry:
+          type: string
+        codeIso2Country:
+          type: string
+        codeIso3Country:
+          type: string
+        numericIso:
+          type: string
+        population:
+          type: string
+        capital:
+          type: string
+        continent:
+          type: string
+        nameCurrency:
+          type: string
+        codeCurrency:
+          type: string
+        codeFips:
+          type: string
+        phonePrefix:
+          type: string
+      description: A country record from the static Countries database.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message returned for some endpoints
+        message:
+          type: string
+          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
+        success:
+          type: boolean
+          description: Always false on an error response
+      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key
+        is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter.
+        Observed by live probe 2026-09-04.
+      examples:
+      - message: Missing API Key
+        success: false
+      - error: Invalid API Key
+        success: false
+    Location:
+      type: object
+      properties:
+        code:
+          type: string
+        icao:
+          type: string
+        name:
+          type: string
+        cityCode:
+          type: string
+        cityName:
+          type: string
+        countryCode:
+          type: string
+        countryName:
+          type: string
+        lat:
+          type: number
+        lng:
+          type: number
+        timezone:
+          type: string
+        type:
+          type: string
+          description: city, airport, rail_station, bus_station, heliport, seaport and similar
+        isRailRoad:
+          type: integer
+        isBusStation:
+          type: integer
+        distance:
+          type: number
+          description: Distance from the queried coordinates, in metres (Nearby API only)
+      description: An airport, city or other transport location.
+    PlaneType:
+      type: object
+      properties:
+        planeTypeId:
+          type: string
+        nameAircraft:
+          type: string
+        codeIataAircraft:
+          type: string
+      description: An aircraft type from the static Airplane-Types database.
+    Route:
+      type: object
+      properties:
+        departureIata:
+          type: string
+        departureIcao:
+          type: string
+        departureTerminal:
+          type:
+          - string
+          - 'null'
+        departureTime:
+          type: string
+        arrivalIata:
+          type: string
+        arrivalIcao:
+          type: string
+        arrivalTerminal:
+          type:
+          - string
+          - 'null'
+        arrivalTime:
+          type: string
+        airlineIata:
+          type: string
+        airlineIcao:
+          type: string
+        flightNumber:
+          type: string
+        codeshares:
+          type:
+          - string
+          - 'null'
+        regNumber:
+          type: string
+      description: A scheduled airline route between two airports.
+    Tax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        nameTax:
+          type: string
+        codeIataTax:
+          type: string
+      description: An aviation tax code from the static Taxes database.
+    TimezoneRecord:
+      type: object
+      properties: {}
+      additionalProperties: true
+      description: An airport timezone record. Aviation Edge publishes no response example for /timezoneDatabase,
+        so the fields are not asserted here.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: query
       name: key
+      description: API key issued with an Aviation Edge subscription, passed as the `key` query parameter.

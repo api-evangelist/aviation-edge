@@ -1,17 +1,29 @@
-generated: '2026-07-15'
+generated: '2026-09-04'
 method: generated
-source: openapi/aviation-edge-openapi.yml
+source: openapi/aviation-edge-notams-api-openapi.yml, openapi/aviation-edge-real-time-api-openapi.yml,
+  openapi/aviation-edge-reference-api-openapi.yml, openapi/aviation-edge-satellites-api-openapi.yml,
+  openapi/aviation-edge-schedules-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 13
+  operations: 17
   by_action_class:
-    connected: 13
+    connected: 17
   by_consequence:
-    read: 13
+    read: 17
   human_in_the_loop_required: 0
 operations:
+- path: /notams
+  method: get
+  operationId: getNotams
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /flights
   method: get
   operationId: getRealTimeFlights
@@ -25,26 +37,6 @@ operations:
 - path: /flightsHistory
   method: get
   operationId: getHistoricalFlights
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /timetable
-  method: get
-  operationId: getTimetable
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /flightsFuture
-  method: get
-  operationId: getFutureFlights
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -92,6 +84,16 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /planeTypeDatabase
+  method: get
+  operationId: getAircraftTypes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /cityDatabase
   method: get
   operationId: getCities
@@ -105,6 +107,26 @@ operations:
 - path: /countryDatabase
   method: get
   operationId: getCountries
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /taxDatabase
+  method: get
+  operationId: getTaxes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /timezoneDatabase
+  method: get
+  operationId: getTimezones
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -135,6 +157,26 @@ operations:
 - path: /satelliteDetails
   method: get
   operationId: getSatelliteDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /timetable
+  method: get
+  operationId: getTimetable
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /flightsFuture
+  method: get
+  operationId: getFutureFlights
   x-agentic-access:
     action-class: connected
     consequence: read

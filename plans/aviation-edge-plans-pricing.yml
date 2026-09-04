@@ -3,149 +3,141 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: Aviation Edge
 providerId: aviation-edge
+generated: '2026-09-04'
+method: searched
+source: https://aviation-edge.com/premium-api/
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-04'
 tags:
   - Airlines
   - Airports
   - Aviation
   - Flight Data
   - Real-Time
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+description: >-
+  Aviation Edge subscription plans, read from the provider's own pricing page on 2026-09-04.
+  This file replaces the 2026-05-04 scaffold, whose tiers and prices were placeholders.
+  Every plan grants access to the full API surface; the tiers differ only in the monthly API
+  call allowance. The advertised low price is a first-month test rate — the subscription
+  auto-renews at the regular rate thereafter.
+plan_count: 4
+currency: USD
+billing_period: month
+free_tier: false
+free_tier_note: >-
+  Aviation Edge withdrew its free API key. https://aviation-edge.com/free-api-key/ states
+  the feature was removed due to abuse, and the FAQ confirms the free trial is disabled; the
+  discounted first month is now the only way to evaluate the data. There is no test key,
+  so an unauthenticated evaluation of the live API is not possible.
+discounts:
+  - type: annual
+    amount: 10%
+    note: 10% discount on annual payment for any plan, per the FAQ.
+  - type: academic
+    amount: negotiated
+    note: >-
+      Students and non-commercial projects are invited to contact the provider; free access
+      is granted in exchange for a backlink attributing Aviation Edge as the source.
 plans:
-  - id: aviation-edge-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Aviation Edge API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: aviation-edge-developer
+    name: Developer
+    type: paid
+    price: '299.00'
+    currency: USD
+    period: month
+    intro_price: '7.00'
+    intro_period: first month
+    description: >-
+      Entry paid tier. 30,000 API calls per month across the full API surface.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
+      - label: API Calls
+        name: api_calls
         type: quota
         metric: requests
-        limit: 1000
+        limit: 30000
         timeFrame: month
-        geo: global
-        domains:
-          - https://aviation-edge.com/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://aviation-edge.com/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Aviation Edge
-  - id: aviation-edge-pro
-    name: Professional
+        price: '299.00'
+      - label: SLA
+        name: sla
+        type: feature
+        description: Server uptime and transfer-speed SLA (https://aviation-edge.com/service-level-agreement/)
+      - label: Support
+        name: support
+        type: feature
+        description: 24/7 support; the support-speed SLA metrics apply to Business Gold only
+  - id: aviation-edge-business
+    name: Business
     type: paid
-    description: Production tier for Aviation Edge. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+    price: '599.00'
+    currency: USD
+    period: month
+    intro_price: '15.00'
+    intro_period: first month
+    description: 100,000 API calls per month across the full API surface.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
+      - label: API Calls
+        name: api_calls
         type: quota
         metric: requests
         limit: 100000
         timeFrame: month
-        geo: global
-        domains:
-          - https://aviation-edge.com/
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://aviation-edge.com/
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://aviation-edge.com/
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Aviation Edge
-  - id: aviation-edge-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for Aviation Edge. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
+        price: '599.00'
+      - label: SLA
+        name: sla
+        type: feature
+        description: Server uptime and transfer-speed SLA
+      - label: Support
+        name: support
+        type: feature
+        description: 24/7 support
+  - id: aviation-edge-business-gold
+    name: Business Gold
+    type: paid
+    price: '1499.00'
+    currency: USD
+    period: month
+    intro_price: '39.00'
+    intro_period: first month
+    description: 500,000 API calls per month, plus development support.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
+      - label: API Calls
+        name: api_calls
         type: quota
         metric: requests
-        limit: -1
+        limit: 500000
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://aviation-edge.com/
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://aviation-edge.com/
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Aviation Edge
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+        price: '1499.00'
+      - label: Development support
+        name: development_support
+        type: feature
+      - label: SLA
+        name: sla
+        type: feature
+        description: Server uptime, transfer speed AND the support quality metrics (phone < 20s, email < 24h)
+  - id: aviation-edge-unlimited
+    name: Unlimited Data
+    type: enterprise
+    price: null
+    currency: USD
+    period: month
+    description: >-
+      Unlimited monthly calls with no usage restrictions and development support. Priced by
+      quotation; the FAQ directs anyone needing more than 500K calls per month to email an
+      estimate.
+    entries:
+      - label: API Calls
+        name: api_calls
+        type: quota
+        metric: requests
+        limit: null
+        timeFrame: month
+        price: null
+notes:
+  - >-
+    The pricing page and the free-api-key page disagree on the first-month rates: the pricing
+    table shows $7 / $15 / $39 while https://aviation-edge.com/free-api-key/ and the FAQ cite
+    "$15, 29$ or 79$" and "as low as $15". The pricing table values are recorded above as the
+    primary source; the discrepancy is the provider's, not this record's.
+  - >-
+    Standalone database downloads (Excel/CSV/SQL) are sold separately from API subscriptions
+    and run on a different dashboard; their pricing is not published on the API pricing page.

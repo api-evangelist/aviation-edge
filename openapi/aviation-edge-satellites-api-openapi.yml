@@ -1,21 +1,27 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Aviation Edge Real-Time Satellites API
   version: v2
-  description: 'Aviation Edge provides global aviation data including real-time flight
-
-    tracking, historical flight data, flight schedules, airline routes,
-
-    delays, airport/airline/aircraft reference data, NOTAMs, and satellite
-
-    tracking. All endpoints are JSON over HTTPS GET and require an API key
-
-    passed as the `key` query parameter.
-
-    '
+  description: 'Aviation Edge provides global aviation data: real-time flight tracking, historical and future airport
+    schedules, airline routes, NOTAMs, satellite tracking, and static airport, airline, aircraft, city, country,
+    tax and timezone databases. Every endpoint is JSON over HTTPS GET and requires an API key passed as the `key`
+    query parameter. Errors are returned as HTTP 200 with an `{"error"|"message": ..., "success": false}` envelope
+    on most endpoints; /flightsHistory and /flightsFuture answer HTTP 400 when a required parameter is missing.'
   contact:
     name: Aviation Edge
-    url: https://aviation-edge.com/
+    url: https://aviation-edge.com/contact/
+  termsOfService: https://aviation-edge.com/api-terms-of-service/
+externalDocs:
+  url: https://aviation-edge.com/developers/
+  description: Aviation Edge developer documentation
+x-provenance:
+  generated: '2026-09-04'
+  method: searched
+  source: 'Harvested from Aviation Edge first-party sources: the provider GitHub account github.com/AviationEdgeAPI
+    (Aviation-Edge-Complete-API, Notam-API, Satellite-Tracker-API, Airport-Schedules-API, Historical-Schedules-API,
+    Future-Schedules-API, Airline-Routes-API, Autocomplete-API, Static-Aviation-APIs READMEs) and the developer
+    documentation at https://aviation-edge.com/developers/. Paths and required parameters were confirmed with unauthenticated
+    live probes against https://aviation-edge.com/v2/public/ on 2026-09-04.'
 servers:
 - url: https://aviation-edge.com/v2/public
   description: Aviation Edge public v2 API
@@ -29,7 +35,9 @@ paths:
     get:
       tags:
       - Satellites
-      summary: Satellite tracking details
+      summary: Satellite tracker
+      description: Returns orbiting satellites and objects with their propagated position, orbital elements and
+        TLE sets.
       operationId: getSatelliteDetails
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -42,6 +50,7 @@ paths:
         in: query
         schema:
           type: integer
+        description: Year of launch
       - name: intldes
         in: query
         schema:
@@ -51,20 +60,71 @@ paths:
         in: query
         schema:
           type: integer
+        description: Orbital apogee filter
+      - name: orbitalperigee
+        in: query
+        schema:
+          type: integer
+        description: Orbital perigee filter
       - name: limit
         in: query
         schema:
           type: integer
           maximum: 30000
+        description: Maximum records to return
       responses:
         '200':
-          description: Satellite metadata
+          description: Satellite tracker result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
+                  $ref: '#/components/schemas/Satellite'
+              examples:
+                sample:
+                  summary: Published provider example
+                  value:
+                  - code: 408
+                    country: US
+                    intldes: 1961-015EH
+                    launchDate: '1961-06-29'
+                    launchNum: '15'
+                    launchPart: EH
+                    launchYear: '1961'
+                    name: THOR ABLESTAR DEB
+                    orbitalApogee: '1035'
+                    orbitalInclination: '66.79'
+                    orbitalPerigee: '929'
+                    orbitalPeriod: '104.73'
+                    result:
+                      ECI:
+                        posX: 0.5454890369
+                        posY: -0.2586148768
+                        posZ: -0.9850851542
+                        velX: 0.0575062685
+                        velY: 0.0304486006
+                        velZ: 0.0232874073
+                      geography:
+                        alt: 1006.4047009328
+                        lat: -58.6467050931
+                        lon: 129.4707358377
+                      satelliteInfo:
+                        classification: U
+                        idLaunchNumber: '015'
+                        idLaunchPiece: 'EH '
+                        idLaunchYear: '61'
+                        orbit: 99888
+                        rightAscension: 21.7828
+                        satnumber: 408
+                    size: MEDIUM
+                    tle1: 1 408U 61015EH 20129.79820524 -.00000021 +00000-0 +54301-4 0 9997
+                    tle2: 2 408 066.7883 021.7828 0070545 199.3274 220.5694 13.74946678998881
+                    type: DEBRIS
+                    updated: 1589063274000
+      externalDocs:
+        url: https://aviation-edge.com/satellite-tracking-api/
+        description: Provider documentation
 components:
   parameters:
     Key:
@@ -74,8 +134,114 @@ components:
       schema:
         type: string
       description: Aviation Edge API key
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message returned for some endpoints
+        message:
+          type: string
+          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
+        success:
+          type: boolean
+          description: Always false on an error response
+      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key
+        is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter.
+        Observed by live probe 2026-09-04.
+      examples:
+      - message: Missing API Key
+        success: false
+      - error: Invalid API Key
+        success: false
+    Satellite:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: NORAD catalog number
+        country:
+          type: string
+        intldes:
+          type: string
+          description: NSSDC international designator
+        launchDate:
+          type: string
+        launchNum:
+          type: string
+        launchPart:
+          type: string
+        launchYear:
+          type: string
+        name:
+          type: string
+        orbitalApogee:
+          type: string
+        orbitalInclination:
+          type: string
+        orbitalPerigee:
+          type: string
+        orbitalPeriod:
+          type: string
+        result:
+          type: object
+          properties:
+            ECI:
+              type: object
+              properties:
+                posX:
+                  type: number
+                posY:
+                  type: number
+                posZ:
+                  type: number
+                velX:
+                  type: number
+                velY:
+                  type: number
+                velZ:
+                  type: number
+            geography:
+              type: object
+              properties:
+                alt:
+                  type: number
+                lat:
+                  type: number
+                lon:
+                  type: number
+            satelliteInfo:
+              type: object
+              properties:
+                classification:
+                  type: string
+                idLaunchNumber:
+                  type: string
+                idLaunchPiece:
+                  type: string
+                idLaunchYear:
+                  type: string
+                orbit:
+                  type: integer
+                rightAscension:
+                  type: number
+                satnumber:
+                  type: integer
+        size:
+          type: string
+        tle1:
+          type: string
+        tle2:
+          type: string
+        type:
+          type: string
+        updated:
+          type: integer
+      description: An orbiting satellite or object, with its current propagated position and TLE set.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: query
       name: key
+      description: API key issued with an Aviation Edge subscription, passed as the `key` query parameter.

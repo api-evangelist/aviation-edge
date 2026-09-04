@@ -1,0 +1,95 @@
+# Aviation Edge
+
+> Aviation Edge (Clearsky LTD) sells global aviation data through a single JSON/REST API and
+> downloadable databases: real-time flight tracking, real-time / historical / future airport
+> schedules, airline routes, NOTAMs, satellite tracking, and static airport, airline,
+> aircraft, city, country, tax and timezone reference data. Every endpoint is an HTTPS GET
+> under https://aviation-edge.com/v2/public and requires a paid subscription key passed as
+> the `key` query parameter.
+
+Generated 2026-09-04 by API Evangelist from this repository's artifacts and the provider's
+published documentation. Aviation Edge does not serve an llms.txt of its own
+(https://aviation-edge.com/llms.txt returns 404, probed 2026-09-04).
+
+## Key facts
+
+- Base URL: https://aviation-edge.com/v2/public
+- Auth: API key in the `key` query parameter. No OAuth, no header auth, no scopes.
+- Read-only: every published operation is a GET. No writes, so no idempotency and nothing to reverse.
+- Errors: most failures return HTTP 200 with `{"error"|"message": ..., "success": false}`.
+  /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter.
+  An unknown path returns HTTP 404 with an HTML body.
+- Rate limiting: a monthly call allowance per key (30,000 / 100,000 / 500,000 / unlimited).
+  No RateLimit-* or Retry-After headers are sent — remaining quota is visible only in the dashboard.
+- No free or trial key. The free tier was withdrawn; evaluation is a discounted first month.
+- Times in responses are the local time of the airport, except NOTAM dates, which are UTC.
+
+## Documentation
+
+- Developer documentation: https://aviation-edge.com/developers/
+- Test the API key (hosted console): https://aviation-edge.com/get.php
+- Pricing: https://aviation-edge.com/premium-api/
+- FAQ: https://aviation-edge.com/frequently-asked-questions/
+- Service Level Agreement: https://aviation-edge.com/service-level-agreement/
+- Quality metrics: https://aviation-edge.com/quality-metrics/
+- Terms of service: https://aviation-edge.com/api-terms-of-service/
+- Privacy policy: https://aviation-edge.com/privacy-policy/
+- Provider GitHub (per-API READMEs with request and response examples): https://github.com/AviationEdgeAPI
+- Blog: https://aviation-edge.com/blog/
+- Contact: https://aviation-edge.com/contact/
+
+## Operations
+
+Dynamic data
+- GET /flights — real-time flight tracker. Filters: flightIata, airlineIata, depIata, arrIata,
+  lat+lng+distance, status, limit (max 30000). Updates about every 5 minutes.
+- GET /timetable — real-time airport departure or arrival timetable. Required: iataCode, type.
+  Filters: airline_iata, status. Updates about every 15 minutes; covers roughly +/- 6 hours.
+- GET /flightsHistory — historical airport schedules. Required: code, type. Filters: date_from,
+  date_to (max 30-day range), airline_iata, flight_number, status. 1 year of history by default.
+- GET /flightsFuture — future airport schedules. Required: type, iataCode, date. Filters:
+  arr_iataCode, dep_iataCode. Up to 1 year ahead; the next 7 days are not served.
+- GET /notams — airport and FIR NOTAMs. One of iata, icao or location is required. Filters:
+  date_from, date_to.
+- GET /satelliteDetails — satellite tracker. Filters: code (NORAD), launchYear, intldes,
+  orbitalapogee, orbitalperigee, limit.
+
+Static / reference data
+- GET /routes — airline routes. Filters: departureIata, departureIcao, airlineIata, airlineIcao, flightNumber.
+- GET /airportDatabase — airports. Filters: codeIataAirport, codeIso2Country.
+- GET /airlineDatabase — airlines. Filters: codeIataAirline, codeIso2Country.
+- GET /airplaneDatabase — individual airframes. Filters: numberRegistration, hexIcaoAirplane, codeIataAirline.
+- GET /planeTypeDatabase — aircraft types. Filter: codeIataAircraft.
+- GET /cityDatabase — cities. Filters: codeIataCity, codeIso2Country.
+- GET /countryDatabase — countries. Filters: codeIso2Country, nameCountry.
+- GET /taxDatabase — IATA aviation tax codes. Filter: codeIataTax.
+- GET /timezoneDatabase — airport timezones.
+- GET /autocomplete — location search. Required: city (the partial query string).
+- GET /nearby — airports and cities near a coordinate. Required: lat, lng. Filter: distance.
+
+## Machine-readable artifacts in this repository
+
+- openapi/_original/aviation-edge-openapi.yml — the complete 17-operation OpenAPI 3.2.0 contract
+- openapi/aviation-edge-real-time-api-openapi.yml — flight tracking operations
+- openapi/aviation-edge-schedules-api-openapi.yml — timetable operations
+- openapi/aviation-edge-reference-api-openapi.yml — static reference operations
+- openapi/aviation-edge-satellites-api-openapi.yml — satellite tracking
+- openapi/aviation-edge-notams-api-openapi.yml — NOTAM operations
+- authentication/aviation-edge-authentication.yml — the API key model
+- errors/aviation-edge-problem-types.yml — the error envelope and every observed failure mode
+- conventions/aviation-edge-conventions.yml — pagination, filtering, error and read-only semantics
+- rate-limits/aviation-edge-rate-limits.yml — monthly quotas and the absence of runtime headers
+- plans/aviation-edge-plans-pricing.yml — the four subscription tiers
+- lifecycle/aviation-edge-lifecycle.yml — versioning, SLA and support commitments
+- data-model/aviation-edge-data-model.yml — the entity graph, joined on IATA/ICAO/ISO codes
+- conformance/aviation-edge-conformance.yml — IATA/ICAO/ISO conformance and what is absent
+- packages/aviation-edge-packages.yml — the two first-party SDKs, both last released in 2017
+- skills/ — packaged agent skills for the marquee flows
+- mcp/aviation-edge-mcp.yml — a candidate MCP tool surface; Aviation Edge ships no MCP server
+
+## Cautions for agents
+
+- A 200 response is not a success. Check `success` before parsing.
+- Do not use this data for navigation or traffic advisories; the provider's own terms and FAQ
+  rule that out, and only static data is covered by the SLA.
+- Bulk pulls are quota-cheap (one call can return up to 30,000 records) but can be very large.
