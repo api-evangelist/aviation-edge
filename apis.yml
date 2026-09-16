@@ -1,23 +1,6 @@
 aid: aviation-edge
 url: https://raw.githubusercontent.com/api-evangelist/aviation-edge/refs/heads/main/apis.yml
 apis:
-- aid: aviation-edge:aviation-edge
-  name: Aviation Edge
-  tags:
-  - Airlines
-  - Airports
-  - Aviation
-  - Flight Tracking
-  - Real-Time
-  humanURL: https://aviation-edge.com/
-  properties:
-  - type: OpenAPI
-    url: openapi/_original/aviation-edge-openapi.yml
-  - type: Documentation
-    url: https://aviation-edge.com/developers/
-  description: Aviation Edge API provides comprehensive aviation data including real-time flight tracking, airport information,
-    airline schedules, aircraft data, and satellite tracking for global aviation intelligence.
-  baseURL: https://aviation-edge.com/v2/public
 - aid: aviation-edge:aviation-edge-real-time-api
   name: Aviation Edge Real-Time API
   description: Real-time and live flight tracking
@@ -76,8 +59,9 @@ apis:
     url: https://aviation-edge.com/flight-schedule-and-timetable-of-airlines-and-airports/
 - aid: aviation-edge:aviation-edge-notams-api
   name: Aviation Edge NOTAMs API
-  description: Real-time and historical NOTAM data for airports and Flight Information Regions, by IATA code, ICAO code or
-    FIR location code.
+  description: >-
+    Real-time and historical NOTAM data for airports and Flight Information Regions, by IATA code, ICAO
+    code or FIR location code.
   humanURL: https://aviation-edge.com/notam-api/
   baseURL: https://aviation-edge.com/v2/public
   tags:
