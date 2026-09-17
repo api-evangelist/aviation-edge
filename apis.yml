@@ -1,20 +1,6 @@
 aid: aviation-edge
 url: https://raw.githubusercontent.com/api-evangelist/aviation-edge/refs/heads/main/apis.yml
 apis:
-- aid: aviation-edge:aviation-edge-real-time-api
-  name: Aviation Edge Real-Time API
-  description: Real-time and live flight tracking
-  humanURL: https://aviation-edge.com/
-  baseURL: https://aviation-edge.com/v2/public
-  tags:
-  - Real-Time
-  properties:
-  - type: OpenAPI
-    url: openapi/aviation-edge-real-time-api-openapi.yml
-  - type: Overlay
-    url: overlays/aviation-edge-real-time-api-overlay.yaml
-  - type: Documentation
-    url: https://aviation-edge.com/flight-radar-and-tracker-api/
 - aid: aviation-edge:aviation-edge-reference-api
   name: Aviation Edge Reference API
   description: Static reference data
@@ -58,21 +44,31 @@ apis:
   - type: Documentation
     url: https://aviation-edge.com/flight-schedule-and-timetable-of-airlines-and-airports/
 - aid: aviation-edge:aviation-edge-notams-api
-  name: Aviation Edge NOTAMs API
-  description: >-
-    Real-time and historical NOTAM data for airports and Flight Information Regions, by IATA code, ICAO
-    code or FIR location code.
-  humanURL: https://aviation-edge.com/notam-api/
+  name: Aviation Edge NOTA Ms API
+  description: Airport and FIR NOTAM data
+  humanURL: https://aviation-edge.com/
   baseURL: https://aviation-edge.com/v2/public
   tags:
   - NOTAMs
-  - Aviation
-  - Flight Safety
   properties:
   - type: OpenAPI
     url: openapi/aviation-edge-notams-api-openapi.yml
-  - type: Overlay
-    url: overlays/aviation-edge-notams-api-overlay.yaml
+  - type: Documentation
+    url: https://aviation-edge.com/flight-radar-and-tracker-api/
+  - type: Documentation
+    url: https://aviation-edge.com/notam-api/
+- aid: aviation-edge:aviation-edge-realtime-api
+  name: Aviation Edge Realtime API
+  description: Real-time and historical flight tracking
+  humanURL: https://aviation-edge.com/
+  baseURL: https://aviation-edge.com/v2/public
+  tags:
+  - Realtime
+  properties:
+  - type: OpenAPI
+    url: openapi/aviation-edge-realtime-api-openapi.yml
+  - type: Documentation
+    url: https://aviation-edge.com/flight-radar-and-tracker-api/
   - type: Documentation
     url: https://aviation-edge.com/notam-api/
 name: Aviation Edge
@@ -121,6 +117,10 @@ maintainers:
   email: kin@apievangelist.com
 specificationVersion: '0.23'
 common:
+- type: Overlay
+  url: overlays/aviation-edge-real-time-api-overlay.yaml
+- type: Overlay
+  url: overlays/aviation-edge-notams-api-overlay.yaml
 - type: Website
   url: https://aviation-edge.com/
 - type: AgenticAccess
