@@ -21,6 +21,8 @@ apis:
   humanURL: https://aviation-edge.com/
   baseURL: https://aviation-edge.com/v2/public
   tags:
+  - Satellite
+  tags_raw:
   - Satellites
   properties:
   - type: OpenAPI
@@ -35,6 +37,8 @@ apis:
   humanURL: https://aviation-edge.com/
   baseURL: https://aviation-edge.com/v2/public
   tags:
+  - Schedule
+  tags_raw:
   - Schedules
   properties:
   - type: OpenAPI
@@ -63,6 +67,8 @@ apis:
   humanURL: https://aviation-edge.com/
   baseURL: https://aviation-edge.com/v2/public
   tags:
+  - Real-Time
+  tags_raw:
   - Realtime
   properties:
   - type: OpenAPI
