@@ -1,26 +1,30 @@
 {
   "provider": "aviation-edge",
   "sources": [
-    "aviation-edge-real-time-api-openapi.yml",
-    "aviation-edge-reference-api-openapi.yml",
-    "aviation-edge-satellites-api-openapi.yml",
-    "aviation-edge-schedules-api-openapi.yml"
+    "_original/aviation-edge-openapi.yml"
   ],
   "outputs": [
+    "aviation-edge-notams-api-openapi.yml",
     "aviation-edge-real-time-api-openapi.yml",
     "aviation-edge-reference-api-openapi.yml",
     "aviation-edge-satellites-api-openapi.yml",
     "aviation-edge-schedules-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "aviation-edge-real-time-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "aviation-edge-reference-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "aviation-edge-satellites-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "aviation-edge-schedules-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "superseded outputs removed: aviation-edge-nota-ms-api-openapi.yml, aviation-edge-realtime-api-openapi.yml",
+    "apis.yml register: written (+2 apis, 5 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "aviation-edge-nota-ms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aviation-edge-realtime-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aviation-edge-reference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aviation-edge-satellites-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aviation-edge-schedules-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

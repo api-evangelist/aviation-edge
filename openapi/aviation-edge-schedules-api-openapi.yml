@@ -1,27 +1,12 @@
 openapi: 3.2.0
 info:
-  title: Aviation Edge Real-Time Schedules API
+  title: Aviation Edge Schedules API
   version: v2
-  description: 'Aviation Edge provides global aviation data: real-time flight tracking, historical and future airport
-    schedules, airline routes, NOTAMs, satellite tracking, and static airport, airline, aircraft, city, country,
-    tax and timezone databases. Every endpoint is JSON over HTTPS GET and requires an API key passed as the `key`
-    query parameter. Errors are returned as HTTP 200 with an `{"error"|"message": ..., "success": false}` envelope
-    on most endpoints; /flightsHistory and /flightsFuture answer HTTP 400 when a required parameter is missing.'
+  description: 'Aviation Edge provides global aviation data: real-time flight tracking, historical and future airport schedules, airline routes, NOTAMs, satellite tracking, and static airport, airline, aircraft, city, country, tax and timezone databases.'
   contact:
     name: Aviation Edge
     url: https://aviation-edge.com/contact/
   termsOfService: https://aviation-edge.com/api-terms-of-service/
-externalDocs:
-  url: https://aviation-edge.com/developers/
-  description: Aviation Edge developer documentation
-x-provenance:
-  generated: '2026-09-04'
-  method: searched
-  source: 'Harvested from Aviation Edge first-party sources: the provider GitHub account github.com/AviationEdgeAPI
-    (Aviation-Edge-Complete-API, Notam-API, Satellite-Tracker-API, Airport-Schedules-API, Historical-Schedules-API,
-    Future-Schedules-API, Airline-Routes-API, Autocomplete-API, Static-Aviation-APIs READMEs) and the developer
-    documentation at https://aviation-edge.com/developers/. Paths and required parameters were confirmed with unauthenticated
-    live probes against https://aviation-edge.com/v2/public/ on 2026-09-04.'
 servers:
 - url: https://aviation-edge.com/v2/public
   description: Aviation Edge public v2 API
@@ -36,9 +21,7 @@ paths:
       tags:
       - Schedules
       summary: Real-time airport timetable
-      description: Returns the real-time departure or arrival timetable of an airport, including delays, gates,
-        terminals and cancellations. Covers roughly a twelve hour window around the current time and updates about
-        every 15 minutes.
+      description: Returns the real-time departure or arrival timetable of an airport, including delays, gates, terminals and cancellations. Covers roughly a twelve hour window around the current time and updates about every 15 minutes.
       operationId: getTimetable
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -77,8 +60,7 @@ paths:
         description: Filter by flight status
       responses:
         '200':
-          description: Real-time airport timetable result set. An error is also returned with HTTP 200 and the Error
-            envelope.
+          description: Real-time airport timetable result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
@@ -113,8 +95,7 @@ paths:
       tags:
       - Schedules
       summary: Future airport schedules
-      description: Returns the departure or arrival schedule of an airport for a future date, up to one year ahead.
-        Dates within seven days of today are not served.
+      description: Returns the departure or arrival schedule of an airport for a future date, up to one year ahead. Dates within seven days of today are not served.
       operationId: getFutureFlights
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -151,8 +132,7 @@ paths:
         description: Filter an arrival schedule by departure airport IATA code
       responses:
         '200':
-          description: Future airport schedules result set. An error is also returned with HTTP 200 and the Error
-            envelope.
+          description: Future airport schedules result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
@@ -202,93 +182,7 @@ paths:
         url: https://aviation-edge.com/future-flight-schedules-and-timetables-of-airports-api/
         description: Provider documentation
 components:
-  parameters:
-    Key:
-      name: key
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Aviation Edge API key
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message returned for some endpoints
-        message:
-          type: string
-          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
-        success:
-          type: boolean
-          description: Always false on an error response
-      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key
-        is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter.
-        Observed by live probe 2026-09-04.
-      examples:
-      - message: Missing API Key
-        success: false
-      - error: Invalid API Key
-        success: false
-    FutureFlight:
-      type: object
-      properties:
-        weekday:
-          type: string
-          description: Day of the week of the flight, "1" being Monday
-        departure:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            terminal:
-              type: string
-            gate:
-              type: string
-            scheduledTime:
-              type: string
-        arrival:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            terminal:
-              type: string
-            gate:
-              type: string
-            scheduledTime:
-              type: string
-        aircraft:
-          type: object
-          properties:
-            modelCode:
-              type: string
-            modelText:
-              type: string
-        airline:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            name:
-              type: string
-        flight:
-          type: object
-          properties:
-            number:
-              type: string
-            iataNumber:
-              type: string
-            icaoNumber:
-              type: string
-      description: A future-dated schedule record, generated from historical schedule data.
     ScheduleFlight:
       type: object
       properties:
@@ -374,11 +268,101 @@ components:
           - 'null'
           properties: {}
           description: Populated when the flight is a codeshare; see https://aviation-edge.com/codeshares-object-description/
-      description: An airport timetable record. The same shape is returned by the real-time /timetable and the historical
-        /flightsHistory endpoints.
+      description: An airport timetable record. The same shape is returned by the real-time /timetable and the historical /flightsHistory endpoints.
+    FutureFlight:
+      type: object
+      properties:
+        weekday:
+          type: string
+          description: Day of the week of the flight, "1" being Monday
+        departure:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            terminal:
+              type: string
+            gate:
+              type: string
+            scheduledTime:
+              type: string
+        arrival:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            terminal:
+              type: string
+            gate:
+              type: string
+            scheduledTime:
+              type: string
+        aircraft:
+          type: object
+          properties:
+            modelCode:
+              type: string
+            modelText:
+              type: string
+        airline:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            name:
+              type: string
+        flight:
+          type: object
+          properties:
+            number:
+              type: string
+            iataNumber:
+              type: string
+            icaoNumber:
+              type: string
+      description: A future-dated schedule record, generated from historical schedule data.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message returned for some endpoints
+        message:
+          type: string
+          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
+        success:
+          type: boolean
+          description: Always false on an error response
+      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter. Observed by live probe 2026-09-04.
+      examples:
+      - message: Missing API Key
+        success: false
+      - error: Invalid API Key
+        success: false
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Aviation Edge API key
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: query
       name: key
       description: API key issued with an Aviation Edge subscription, passed as the `key` query parameter.
+externalDocs:
+  url: https://aviation-edge.com/developers/
+  description: Aviation Edge developer documentation
+x-provenance:
+  generated: '2026-09-04'
+  method: searched
+  source: 'Harvested from Aviation Edge first-party sources: the provider GitHub account github.com/AviationEdgeAPI (Aviation-Edge-Complete-API, Notam-API, Satellite-Tracker-API, Airport-Schedules-API, Historical-Schedules-API, Future-Schedules-API, Airline-Routes-API, Autocomplete-API, Static-Aviation-APIs READMEs) and the developer documentation at https://aviation-edge.com/developers/. Paths and required parameters were confirmed with unauthenticated live probes against https://aviation-edge.com/v2/public/ on 2026-09-04.'

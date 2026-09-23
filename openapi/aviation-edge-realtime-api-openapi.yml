@@ -2,42 +2,26 @@ openapi: 3.2.0
 info:
   title: Aviation Edge Real Time API
   version: v2
-  description: 'Aviation Edge provides global aviation data: real-time flight tracking, historical and future airport
-    schedules, airline routes, NOTAMs, satellite tracking, and static airport, airline, aircraft, city, country,
-    tax and timezone databases. Every endpoint is JSON over HTTPS GET and requires an API key passed as the `key`
-    query parameter. Errors are returned as HTTP 200 with an `{"error"|"message": ..., "success": false}` envelope
-    on most endpoints; /flightsHistory and /flightsFuture answer HTTP 400 when a required parameter is missing.'
+  description: 'Aviation Edge provides global aviation data: real-time flight tracking, historical and future airport schedules, airline routes, NOTAMs, satellite tracking, and static airport, airline, aircraft, city, country, tax and timezone databases.'
   contact:
     name: Aviation Edge
     url: https://aviation-edge.com/contact/
   termsOfService: https://aviation-edge.com/api-terms-of-service/
-externalDocs:
-  url: https://aviation-edge.com/developers/
-  description: Aviation Edge developer documentation
-x-provenance:
-  generated: '2026-09-04'
-  method: searched
-  source: 'Harvested from Aviation Edge first-party sources: the provider GitHub account github.com/AviationEdgeAPI
-    (Aviation-Edge-Complete-API, Notam-API, Satellite-Tracker-API, Airport-Schedules-API, Historical-Schedules-API,
-    Future-Schedules-API, Airline-Routes-API, Autocomplete-API, Static-Aviation-APIs READMEs) and the developer
-    documentation at https://aviation-edge.com/developers/. Paths and required parameters were confirmed with unauthenticated
-    live probes against https://aviation-edge.com/v2/public/ on 2026-09-04.'
 servers:
 - url: https://aviation-edge.com/v2/public
   description: Aviation Edge public v2 API
 security:
 - ApiKeyAuth: []
 tags:
-- name: Real-Time
+- name: Realtime
   description: Real-time and historical flight tracking
 paths:
   /flights:
     get:
       tags:
-      - Real-Time
+      - Realtime
       summary: Real-time flight tracker
-      description: Returns real-time positional data for live flights worldwide. Filterable by airline, departure
-        or arrival airport, flight number, or a radius around a coordinate. Updated approximately every 5 minutes.
+      description: Returns real-time positional data for live flights worldwide. Filterable by airline, departure or arrival airport, flight number, or a radius around a coordinate. Updated approximately every 5 minutes.
       operationId: getRealTimeFlights
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -106,8 +90,7 @@ paths:
         description: Maximum number of records to return
       responses:
         '200':
-          description: Real-time flight tracker result set. An error is also returned with HTTP 200 and the Error
-            envelope.
+          description: Real-time flight tracker result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
@@ -155,10 +138,9 @@ paths:
   /flightsHistory:
     get:
       tags:
-      - Real-Time
+      - Realtime
       summary: Historical airport schedules
-      description: Returns the historical departure or arrival schedule of an airport for a date or date range of
-        up to 30 days. Standard access covers the last year; five-year access is available on request.
+      description: Returns the historical departure or arrival schedule of an airport for a date or date range of up to 30 days. Standard access covers the last year; five-year access is available on request.
       operationId: getHistoricalFlights
       parameters:
       - $ref: '#/components/parameters/Key'
@@ -209,8 +191,7 @@ paths:
         description: Filter by flight status
       responses:
         '200':
-          description: Historical airport schedules result set. An error is also returned with HTTP 200 and the
-            Error envelope.
+          description: Historical airport schedules result set. An error is also returned with HTTP 200 and the Error envelope.
           content:
             application/json:
               schema:
@@ -252,113 +233,7 @@ paths:
         url: https://aviation-edge.com/historical-flight-schedules-api/
         description: Provider documentation
 components:
-  parameters:
-    Key:
-      name: key
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Aviation Edge API key
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message returned for some endpoints
-        message:
-          type: string
-          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
-        success:
-          type: boolean
-          description: Always false on an error response
-      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key
-        is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter.
-        Observed by live probe 2026-09-04.
-      examples:
-      - message: Missing API Key
-        success: false
-      - error: Invalid API Key
-        success: false
-    Flight:
-      type: object
-      properties:
-        aircraft:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icao24:
-              type: string
-            icaoCode:
-              type: string
-            regNumber:
-              type: string
-        airline:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-        arrival:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-        departure:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-        flight:
-          type: object
-          properties:
-            iataNumber:
-              type: string
-            icaoNumber:
-              type: string
-            number:
-              type: string
-        geography:
-          type: object
-          properties:
-            altitude:
-              type: number
-            direction:
-              type: number
-            latitude:
-              type: number
-            longitude:
-              type: number
-        speed:
-          type: object
-          properties:
-            horizontal:
-              type: number
-            isGround:
-              type: number
-            vspeed:
-              type: number
-        status:
-          type: string
-          description: Flight status, e.g. en-route, scheduled, landed, cancelled, incident, diverted
-        system:
-          type: object
-          properties:
-            squawk:
-              type:
-              - string
-              - 'null'
-            updated:
-              type: integer
-              description: Unix timestamp of the last position update
-      description: A live tracked flight as returned by the Flights Tracker API.
     ScheduleFlight:
       type: object
       properties:
@@ -444,11 +319,121 @@ components:
           - 'null'
           properties: {}
           description: Populated when the flight is a codeshare; see https://aviation-edge.com/codeshares-object-description/
-      description: An airport timetable record. The same shape is returned by the real-time /timetable and the historical
-        /flightsHistory endpoints.
+      description: An airport timetable record. The same shape is returned by the real-time /timetable and the historical /flightsHistory endpoints.
+    Flight:
+      type: object
+      properties:
+        aircraft:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icao24:
+              type: string
+            icaoCode:
+              type: string
+            regNumber:
+              type: string
+        airline:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+        arrival:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+        departure:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+        flight:
+          type: object
+          properties:
+            iataNumber:
+              type: string
+            icaoNumber:
+              type: string
+            number:
+              type: string
+        geography:
+          type: object
+          properties:
+            altitude:
+              type: number
+            direction:
+              type: number
+            latitude:
+              type: number
+            longitude:
+              type: number
+        speed:
+          type: object
+          properties:
+            horizontal:
+              type: number
+            isGround:
+              type: number
+            vspeed:
+              type: number
+        status:
+          type: string
+          description: Flight status, e.g. en-route, scheduled, landed, cancelled, incident, diverted
+        system:
+          type: object
+          properties:
+            squawk:
+              type:
+              - string
+              - 'null'
+            updated:
+              type: integer
+              description: Unix timestamp of the last position update
+      description: A live tracked flight as returned by the Flights Tracker API.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message returned for some endpoints
+        message:
+          type: string
+          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
+        success:
+          type: boolean
+          description: Always false on an error response
+      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter. Observed by live probe 2026-09-04.
+      examples:
+      - message: Missing API Key
+        success: false
+      - error: Invalid API Key
+        success: false
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Aviation Edge API key
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
       in: query
       name: key
       description: API key issued with an Aviation Edge subscription, passed as the `key` query parameter.
+externalDocs:
+  url: https://aviation-edge.com/developers/
+  description: Aviation Edge developer documentation
+x-provenance:
+  generated: '2026-09-04'
+  method: searched
+  source: 'Harvested from Aviation Edge first-party sources: the provider GitHub account github.com/AviationEdgeAPI (Aviation-Edge-Complete-API, Notam-API, Satellite-Tracker-API, Airport-Schedules-API, Historical-Schedules-API, Future-Schedules-API, Airline-Routes-API, Autocomplete-API, Static-Aviation-APIs READMEs) and the developer documentation at https://aviation-edge.com/developers/. Paths and required parameters were confirmed with unauthenticated live probes against https://aviation-edge.com/v2/public/ on 2026-09-04.'
