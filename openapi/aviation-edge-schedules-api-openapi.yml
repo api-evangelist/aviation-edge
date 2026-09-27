@@ -183,6 +183,82 @@ paths:
         description: Provider documentation
 components:
   schemas:
+    FutureFlight:
+      type: object
+      properties:
+        weekday:
+          type: string
+          description: Day of the week of the flight, "1" being Monday
+        departure:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            terminal:
+              type: string
+            gate:
+              type: string
+            scheduledTime:
+              type: string
+        arrival:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            terminal:
+              type: string
+            gate:
+              type: string
+            scheduledTime:
+              type: string
+        aircraft:
+          type: object
+          properties:
+            modelCode:
+              type: string
+            modelText:
+              type: string
+        airline:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            name:
+              type: string
+        flight:
+          type: object
+          properties:
+            number:
+              type: string
+            iataNumber:
+              type: string
+            icaoNumber:
+              type: string
+      description: A future-dated schedule record, generated from historical schedule data.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message returned for some endpoints
+        message:
+          type: string
+          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
+        success:
+          type: boolean
+          description: Always false on an error response
+      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter. Observed by live probe 2026-09-04.
+      examples:
+      - message: Missing API Key
+        success: false
+      - error: Invalid API Key
+        success: false
     ScheduleFlight:
       type: object
       properties:
@@ -269,82 +345,6 @@ components:
           properties: {}
           description: Populated when the flight is a codeshare; see https://aviation-edge.com/codeshares-object-description/
       description: An airport timetable record. The same shape is returned by the real-time /timetable and the historical /flightsHistory endpoints.
-    FutureFlight:
-      type: object
-      properties:
-        weekday:
-          type: string
-          description: Day of the week of the flight, "1" being Monday
-        departure:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            terminal:
-              type: string
-            gate:
-              type: string
-            scheduledTime:
-              type: string
-        arrival:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            terminal:
-              type: string
-            gate:
-              type: string
-            scheduledTime:
-              type: string
-        aircraft:
-          type: object
-          properties:
-            modelCode:
-              type: string
-            modelText:
-              type: string
-        airline:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            name:
-              type: string
-        flight:
-          type: object
-          properties:
-            number:
-              type: string
-            iataNumber:
-              type: string
-            icaoNumber:
-              type: string
-      description: A future-dated schedule record, generated from historical schedule data.
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message returned for some endpoints
-        message:
-          type: string
-          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
-        success:
-          type: boolean
-          description: Always false on an error response
-      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter. Observed by live probe 2026-09-04.
-      examples:
-      - message: Missing API Key
-        success: false
-      - error: Invalid API Key
-        success: false
   parameters:
     Key:
       name: key

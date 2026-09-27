@@ -234,92 +234,6 @@ paths:
         description: Provider documentation
 components:
   schemas:
-    ScheduleFlight:
-      type: object
-      properties:
-        type:
-          type: string
-          description: departure or arrival
-        status:
-          type: string
-          description: scheduled, active, landed, cancelled, incident, diverted or redirected
-        airline:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            name:
-              type: string
-        departure:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            terminal:
-              type: string
-            gate:
-              type: string
-            baggage:
-              type: string
-            delay:
-              type: string
-              description: Delay in minutes
-            scheduledTime:
-              type: string
-            estimatedTime:
-              type: string
-            actualTime:
-              type: string
-            estimatedRunway:
-              type: string
-            actualRunway:
-              type: string
-        arrival:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            terminal:
-              type: string
-            gate:
-              type: string
-            baggage:
-              type: string
-            delay:
-              type: string
-              description: Delay in minutes
-            scheduledTime:
-              type: string
-            estimatedTime:
-              type: string
-            actualTime:
-              type: string
-            estimatedRunway:
-              type: string
-            actualRunway:
-              type: string
-        flight:
-          type: object
-          properties:
-            number:
-              type: string
-            iataNumber:
-              type: string
-            icaoNumber:
-              type: string
-        codeshared:
-          type:
-          - object
-          - 'null'
-          properties: {}
-          description: Populated when the flight is a codeshare; see https://aviation-edge.com/codeshares-object-description/
-      description: An airport timetable record. The same shape is returned by the real-time /timetable and the historical /flightsHistory endpoints.
     Flight:
       type: object
       properties:
@@ -416,6 +330,92 @@ components:
         success: false
       - error: Invalid API Key
         success: false
+    ScheduleFlight:
+      type: object
+      properties:
+        type:
+          type: string
+          description: departure or arrival
+        status:
+          type: string
+          description: scheduled, active, landed, cancelled, incident, diverted or redirected
+        airline:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            name:
+              type: string
+        departure:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            terminal:
+              type: string
+            gate:
+              type: string
+            baggage:
+              type: string
+            delay:
+              type: string
+              description: Delay in minutes
+            scheduledTime:
+              type: string
+            estimatedTime:
+              type: string
+            actualTime:
+              type: string
+            estimatedRunway:
+              type: string
+            actualRunway:
+              type: string
+        arrival:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            terminal:
+              type: string
+            gate:
+              type: string
+            baggage:
+              type: string
+            delay:
+              type: string
+              description: Delay in minutes
+            scheduledTime:
+              type: string
+            estimatedTime:
+              type: string
+            actualTime:
+              type: string
+            estimatedRunway:
+              type: string
+            actualRunway:
+              type: string
+        flight:
+          type: object
+          properties:
+            number:
+              type: string
+            iataNumber:
+              type: string
+            icaoNumber:
+              type: string
+        codeshared:
+          type:
+          - object
+          - 'null'
+          properties: {}
+          description: Populated when the flight is a codeshare; see https://aviation-edge.com/codeshares-object-description/
+      description: An airport timetable record. The same shape is returned by the real-time /timetable and the historical /flightsHistory endpoints.
   parameters:
     Key:
       name: key

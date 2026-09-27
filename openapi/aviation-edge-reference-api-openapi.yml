@@ -519,21 +519,6 @@ paths:
         description: Provider documentation
 components:
   schemas:
-    TimezoneRecord:
-      type: object
-      properties: {}
-      additionalProperties: true
-      description: An airport timezone record. Aviation Edge publishes no response example for /timezoneDatabase, so the fields are not asserted here.
-    Tax:
-      type: object
-      properties:
-        taxId:
-          type: string
-        nameTax:
-          type: string
-        codeIataTax:
-          type: string
-      description: An aviation tax code from the static Taxes database.
     Country:
       type: object
       properties:
@@ -562,58 +547,6 @@ components:
         phonePrefix:
           type: string
       description: A country record from the static Countries database.
-    Airport:
-      type: object
-      properties:
-        airportId:
-          type: string
-        nameAirport:
-          type: string
-        codeIataAirport:
-          type: string
-        codeIcaoAirport:
-          type: string
-        latitudeAirport:
-          type: string
-        longitudeAirport:
-          type: string
-        geonameId:
-          type: string
-        timezone:
-          type: string
-        GMT:
-          type: string
-        phone:
-          type: string
-        nameCountry:
-          type: string
-        codeIso2Country:
-          type: string
-        codeIataCity:
-          type: string
-      description: An airport record from the static Airports database.
-    City:
-      type: object
-      properties:
-        cityId:
-          type: string
-        nameCity:
-          type: string
-        codeIataCity:
-          type: string
-        codeIso2Country:
-          type: string
-        latitudeCity:
-          type: string
-        longitudeCity:
-          type: string
-        timezone:
-          type: string
-        GMT:
-          type: string
-        geonameId:
-          type: string
-      description: A city record from the static Cities database.
     Route:
       type: object
       properties:
@@ -650,82 +583,6 @@ components:
         regNumber:
           type: string
       description: A scheduled airline route between two airports.
-    Location:
-      type: object
-      properties:
-        code:
-          type: string
-        icao:
-          type: string
-        name:
-          type: string
-        cityCode:
-          type: string
-        cityName:
-          type: string
-        countryCode:
-          type: string
-        countryName:
-          type: string
-        lat:
-          type: number
-        lng:
-          type: number
-        timezone:
-          type: string
-        type:
-          type: string
-          description: city, airport, rail_station, bus_station, heliport, seaport and similar
-        isRailRoad:
-          type: integer
-        isBusStation:
-          type: integer
-        distance:
-          type: number
-          description: Distance from the queried coordinates, in metres (Nearby API only)
-      description: An airport, city or other transport location.
-    Airline:
-      type: object
-      properties:
-        airlineId:
-          type: string
-        nameAirline:
-          type: string
-        codeIataAirline:
-          type: string
-        iataPrefixAccounting:
-          type: string
-        codeIcaoAirline:
-          type: string
-        callsign:
-          type: string
-        type:
-          type: string
-        statusAirline:
-          type: string
-        sizeAirline:
-          type: string
-        ageFleet:
-          type: string
-        founding:
-          type: string
-        codeHub:
-          type: string
-        nameCountry:
-          type: string
-        codeIso2Country:
-          type: string
-      description: An airline record from the static Airlines database.
-    PlaneType:
-      type: object
-      properties:
-        planeTypeId:
-          type: string
-        nameAircraft:
-          type: string
-        codeIataAircraft:
-          type: string
-      description: An aircraft type from the static Airplane-Types database.
     Airplane:
       type: object
       properties:
@@ -778,6 +635,149 @@ components:
         planeStatus:
           type: string
       description: An individual airframe from the static Airplanes database.
+    Location:
+      type: object
+      properties:
+        code:
+          type: string
+        icao:
+          type: string
+        name:
+          type: string
+        cityCode:
+          type: string
+        cityName:
+          type: string
+        countryCode:
+          type: string
+        countryName:
+          type: string
+        lat:
+          type: number
+        lng:
+          type: number
+        timezone:
+          type: string
+        type:
+          type: string
+          description: city, airport, rail_station, bus_station, heliport, seaport and similar
+        isRailRoad:
+          type: integer
+        isBusStation:
+          type: integer
+        distance:
+          type: number
+          description: Distance from the queried coordinates, in metres (Nearby API only)
+      description: An airport, city or other transport location.
+    City:
+      type: object
+      properties:
+        cityId:
+          type: string
+        nameCity:
+          type: string
+        codeIataCity:
+          type: string
+        codeIso2Country:
+          type: string
+        latitudeCity:
+          type: string
+        longitudeCity:
+          type: string
+        timezone:
+          type: string
+        GMT:
+          type: string
+        geonameId:
+          type: string
+      description: A city record from the static Cities database.
+    Tax:
+      type: object
+      properties:
+        taxId:
+          type: string
+        nameTax:
+          type: string
+        codeIataTax:
+          type: string
+      description: An aviation tax code from the static Taxes database.
+    TimezoneRecord:
+      type: object
+      properties: {}
+      additionalProperties: true
+      description: An airport timezone record. Aviation Edge publishes no response example for /timezoneDatabase, so the fields are not asserted here.
+    Airline:
+      type: object
+      properties:
+        airlineId:
+          type: string
+        nameAirline:
+          type: string
+        codeIataAirline:
+          type: string
+        iataPrefixAccounting:
+          type: string
+        codeIcaoAirline:
+          type: string
+        callsign:
+          type: string
+        type:
+          type: string
+        statusAirline:
+          type: string
+        sizeAirline:
+          type: string
+        ageFleet:
+          type: string
+        founding:
+          type: string
+        codeHub:
+          type: string
+        nameCountry:
+          type: string
+        codeIso2Country:
+          type: string
+      description: An airline record from the static Airlines database.
+    Airport:
+      type: object
+      properties:
+        airportId:
+          type: string
+        nameAirport:
+          type: string
+        codeIataAirport:
+          type: string
+        codeIcaoAirport:
+          type: string
+        latitudeAirport:
+          type: string
+        longitudeAirport:
+          type: string
+        geonameId:
+          type: string
+        timezone:
+          type: string
+        GMT:
+          type: string
+        phone:
+          type: string
+        nameCountry:
+          type: string
+        codeIso2Country:
+          type: string
+        codeIataCity:
+          type: string
+      description: An airport record from the static Airports database.
+    PlaneType:
+      type: object
+      properties:
+        planeTypeId:
+          type: string
+        nameAircraft:
+          type: string
+        codeIataAircraft:
+          type: string
+      description: An aircraft type from the static Airplane-Types database.
   parameters:
     Key:
       name: key

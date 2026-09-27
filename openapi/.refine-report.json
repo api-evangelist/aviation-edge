@@ -11,17 +11,17 @@
     "aviation-edge-schedules-api-openapi.yml"
   ],
   "archived": [
-    "deleted 2 superseded output(s) from the previous generation"
+    "deleted 1 superseded output(s) from the previous generation"
   ],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "superseded outputs removed: aviation-edge-nota-ms-api-openapi.yml, aviation-edge-realtime-api-openapi.yml",
-    "apis.yml register: written (+2 apis, 5 total)"
+    "superseded outputs removed: aviation-edge-realtime-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 5 total)"
   ],
   "skipped": [
-    "aviation-edge-nota-ms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aviation-edge-notams-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "aviation-edge-realtime-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "aviation-edge-reference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "aviation-edge-satellites-api-openapi.yml: previously refined output, superseded by openapi/_original/",

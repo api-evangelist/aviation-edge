@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Aviation Edge NOTA Ms API
+  title: Aviation Edge NOTAMs API
   version: v2
   description: 'Aviation Edge provides global aviation data: real-time flight tracking, historical and future airport schedules, airline routes, NOTAMs, satellite tracking, and static airport, airline, aircraft, city, country, tax and timezone databases.'
   contact:
