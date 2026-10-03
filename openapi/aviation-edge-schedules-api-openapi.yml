@@ -183,64 +183,6 @@ paths:
         description: Provider documentation
 components:
   schemas:
-    FutureFlight:
-      type: object
-      properties:
-        weekday:
-          type: string
-          description: Day of the week of the flight, "1" being Monday
-        departure:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            terminal:
-              type: string
-            gate:
-              type: string
-            scheduledTime:
-              type: string
-        arrival:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            terminal:
-              type: string
-            gate:
-              type: string
-            scheduledTime:
-              type: string
-        aircraft:
-          type: object
-          properties:
-            modelCode:
-              type: string
-            modelText:
-              type: string
-        airline:
-          type: object
-          properties:
-            iataCode:
-              type: string
-            icaoCode:
-              type: string
-            name:
-              type: string
-        flight:
-          type: object
-          properties:
-            number:
-              type: string
-            iataNumber:
-              type: string
-            icaoNumber:
-              type: string
-      description: A future-dated schedule record, generated from historical schedule data.
     Error:
       type: object
       properties:
@@ -345,6 +287,64 @@ components:
           properties: {}
           description: Populated when the flight is a codeshare; see https://aviation-edge.com/codeshares-object-description/
       description: An airport timetable record. The same shape is returned by the real-time /timetable and the historical /flightsHistory endpoints.
+    FutureFlight:
+      type: object
+      properties:
+        weekday:
+          type: string
+          description: Day of the week of the flight, "1" being Monday
+        departure:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            terminal:
+              type: string
+            gate:
+              type: string
+            scheduledTime:
+              type: string
+        arrival:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            terminal:
+              type: string
+            gate:
+              type: string
+            scheduledTime:
+              type: string
+        aircraft:
+          type: object
+          properties:
+            modelCode:
+              type: string
+            modelText:
+              type: string
+        airline:
+          type: object
+          properties:
+            iataCode:
+              type: string
+            icaoCode:
+              type: string
+            name:
+              type: string
+        flight:
+          type: object
+          properties:
+            number:
+              type: string
+            iataNumber:
+              type: string
+            icaoNumber:
+              type: string
+      description: A future-dated schedule record, generated from historical schedule data.
   parameters:
     Key:
       name: key

@@ -234,6 +234,24 @@ paths:
         description: Provider documentation
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message returned for some endpoints
+        message:
+          type: string
+          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
+        success:
+          type: boolean
+          description: Always false on an error response
+      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter. Observed by live probe 2026-09-04.
+      examples:
+      - message: Missing API Key
+        success: false
+      - error: Invalid API Key
+        success: false
     Flight:
       type: object
       properties:
@@ -312,24 +330,6 @@ components:
               type: integer
               description: Unix timestamp of the last position update
       description: A live tracked flight as returned by the Flights Tracker API.
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message returned for some endpoints
-        message:
-          type: string
-          description: Error message returned for other endpoints; may also be an object keyed by the missing parameter
-        success:
-          type: boolean
-          description: Always false on an error response
-      description: Aviation Edge error envelope. Most endpoints return HTTP 200 with this body when the API key is missing or invalid; /flightsHistory and /flightsFuture return HTTP 400 for a missing required parameter. Observed by live probe 2026-09-04.
-      examples:
-      - message: Missing API Key
-        success: false
-      - error: Invalid API Key
-        success: false
     ScheduleFlight:
       type: object
       properties:
