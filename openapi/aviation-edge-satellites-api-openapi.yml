@@ -110,14 +110,6 @@ paths:
         url: https://aviation-edge.com/satellite-tracking-api/
         description: Provider documentation
 components:
-  parameters:
-    Key:
-      name: key
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Aviation Edge API key
   schemas:
     Satellite:
       type: object
@@ -203,6 +195,14 @@ components:
         updated:
           type: integer
       description: An orbiting satellite or object, with its current propagated position and TLE set.
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Aviation Edge API key
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

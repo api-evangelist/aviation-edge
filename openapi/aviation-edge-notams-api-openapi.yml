@@ -73,14 +73,6 @@ paths:
         url: https://aviation-edge.com/notam-api/
         description: Provider documentation
 components:
-  parameters:
-    Key:
-      name: key
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Aviation Edge API key
   schemas:
     Notam:
       type: object
@@ -104,6 +96,14 @@ components:
           type: string
           description: The original NOTAM message text
       description: A NOTAM record for an airport or FIR.
+  parameters:
+    Key:
+      name: key
+      in: query
+      required: true
+      schema:
+        type: string
+      description: Aviation Edge API key
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
