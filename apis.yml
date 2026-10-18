@@ -67,6 +67,8 @@ apis:
   humanURL: https://aviation-edge.com/
   baseURL: https://aviation-edge.com/v2/public
   tags:
+  - Real-Time
+  tags_raw:
   - Realtime
   properties:
   - type: OpenAPI
