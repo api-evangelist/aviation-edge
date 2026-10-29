@@ -1,4 +1,4 @@
-# Aviation Edge (aviation-edge)
+# Aviation Edge
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,57 +66,148 @@
 
 Aviation Edge is a leading provider of aviation data and technology solutions for the global aviation industry. The company offers comprehensive and accurate data sets that cover everything from flight schedules and airline information to airport details and aircraft data.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/aviation-edge/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/aviation-edge/refs/heads/main/apis.yml)
+**Areas:** Airlines · Airports · Aviation · Flight Data · Real-Time
 
-## Scope
+## Aviation Edge on APIs.io
 
-- **Type:** Index
-- **Position:** Consuming
-- **Access:** 3rd-Party
+Everything profiled for Aviation Edge is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/aviation-edge/](https://apis.io/providers/aviation-edge/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (5)
 
-- Airlines
-- Airports
-- Aviation
-- Flight Data
-- Real-Time
+- [Aviation Edge Reference API](https://apis.io/apis/aviation-edge/aviation-edge-reference-api/) — Static reference data
+- [Aviation Edge Satellites API](https://apis.io/apis/aviation-edge/aviation-edge-satellites-api/) — Satellite tracking data
+- [Aviation Edge Schedules API](https://apis.io/apis/aviation-edge/aviation-edge-schedules-api/) — Airport schedules and flight timetables
+- [Aviation Edge NOTA Ms API](https://apis.io/apis/aviation-edge/aviation-edge-notams-api/) — Airport and FIR NOTAM data
+- [Aviation Edge Realtime API](https://apis.io/apis/aviation-edge/aviation-edge-realtime-api/) — Real-time and historical flight tracking
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-02-06
-- **Modified:** 2026-04-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Aviation Edge
+Model Context Protocol servers that expose the API to agents.
 
-Aviation Edge API provides comprehensive aviation data including real-time flight tracking, airport information, airline schedules, aircraft data, and satellite tracking for global aviation intelligence.
+- [aviation-edge](https://apis.io/servers/aviation-edge/aviation-edge/)
 
-- **Human URL:** [https://aviation-edge.com/](https://aviation-edge.com/)
-- **Base URL:** `https://aviation-edge.com/`
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Airlines
-- Airports
-- Aviation
-- Flight Tracking
-- Real-Time
+- [Aviation Edge Agentic Access](https://apis.io/agentic-access/aviation-edge/aviation-edge-agentic-access/)
 
-#### Properties
+#### Collections (5)
 
-- [Documentation]( https://aviation-edge.com/satellite-tracking-api/)
-- [Postman Collection](collections/aviation-edge.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/aviation-edge.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-## Common Properties
+- [Aviation Edge API](https://apis.io/collections/aviation-edge/open-aviation-edge/)
+- [Aviation Edge Real-Time API](https://apis.io/collections/aviation-edge/open-aviation-edge-real-time-api/)
+- [Aviation Edge Real-Time Reference API](https://apis.io/collections/aviation-edge/open-aviation-edge-reference-api/)
+- [Aviation Edge Real-Time Satellites API](https://apis.io/collections/aviation-edge/open-aviation-edge-satellites-api/)
+- [Aviation Edge Real-Time Schedules API](https://apis.io/collections/aviation-edge/open-aviation-edge-schedules-api/)
 
-- [Portal](https://aviation-edge.com/developers/)
-- [GitHub Organization](https://github.com/aviation-edge)
-- [LinkedIn](https://www.linkedin.com/company/aviation-edge/)
+#### Overlays (5)
 
-## Maintainers
+OpenAPI overlays, including conversational phrasing for each operation.
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+- [Aviation Edge Notams Api Overlay](https://apis.io/overlays/aviation-edge/aviation-edge-notams-api-overlay/)
+- [Aviation Edge Real Time Api Overlay](https://apis.io/overlays/aviation-edge/aviation-edge-real-time-api-overlay/)
+- [Aviation Edge Reference Api Overlay](https://apis.io/overlays/aviation-edge/aviation-edge-reference-api-overlay/)
+- [Aviation Edge Satellites Api Overlay](https://apis.io/overlays/aviation-edge/aviation-edge-satellites-api-overlay/)
+- [Aviation Edge Schedules Api Overlay](https://apis.io/overlays/aviation-edge/aviation-edge-schedules-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Aviation Edge Authentication](https://apis.io/security/aviation-edge/aviation-edge-authentication/)
+- [Aviation Edge Domain Security](https://apis.io/security/aviation-edge/aviation-edge-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Aviation Edge Plans Pricing](https://apis.io/plans/aviation-edge/aviation-edge-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Aviation Edge Rate Limits](https://apis.io/rate-limits/aviation-edge/aviation-edge-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Aviation Edge Finops](https://apis.io/finops/aviation-edge/aviation-edge-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://aviation-edge.com/)
+- [Documentation](https://aviation-edge.com/developers/)
+- [Getting started](https://aviation-edge.com/developers/)
+- [API reference](https://aviation-edge.com/developers/)
+- [Pricing](https://aviation-edge.com/premium-api/)
+- [Sign up](https://aviation-edge.com/premium-api/)
+- [Support](https://aviation-edge.com/contact/)
+- [Blog](https://aviation-edge.com/blog/)
+- [Terms of service](https://aviation-edge.com/api-terms-of-service/)
+- [Privacy policy](https://aviation-edge.com/privacy-policy/)
+- [GitHub](https://github.com/AviationEdgeAPI)
+
+## API Evangelist rating
+
+**Kin Score 56.3** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 50.9 |
+| Contract governance | 4.5 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 73.2 |
+| Access clarity | 76.3 |
+
+**Agent readiness 33.4** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | na |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | na |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | na |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/aviation-edge/](https://apis.io/providers/aviation-edge/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Aviation Edge: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/aviation-edge/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
